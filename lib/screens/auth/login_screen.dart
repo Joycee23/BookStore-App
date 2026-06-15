@@ -87,6 +87,17 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
 
   @override
   Widget build(BuildContext context) {
+    final auth = Provider.of<AuthProvider>(context);
+    if (auth.isAuthenticated) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (auth.email == 'admin@gmail.com') {
+          Navigator.pushReplacementNamed(context, '/admin');
+        } else {
+          Navigator.pushReplacementNamed(context, '/home');
+        }
+      });
+    }
+
     return Scaffold(
       body: Stack(
         children: [

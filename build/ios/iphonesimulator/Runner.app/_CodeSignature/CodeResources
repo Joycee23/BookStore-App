@@ -46,7 +46,7 @@
 		</data>
 		<key>Frameworks/App.framework/App</key>
 		<data>
-		ZzSiQvuqMVuket+1VqHvwhQFdTg=
+		volB01IkO8of4hQwrlMwFlNS6Rk=
 		</data>
 		<key>Frameworks/App.framework/Info.plist</key>
 		<data>
@@ -54,11 +54,11 @@
 		</data>
 		<key>Frameworks/App.framework/_CodeSignature/CodeResources</key>
 		<data>
-		tSfvQOA/xTEGEWlmKzMGohNuENk=
+		y5eVQ8bUwDuZejjKYEVfqZGE4bE=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/.env</key>
 		<data>
-		m5weg/xBnwTRzsSzeX+fkJmlm3A=
+		IzATD4C2RieA3wVVLQps1egXnXQ=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/AssetManifest.bin</key>
 		<data>
@@ -74,7 +74,7 @@
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/NOTICES.Z</key>
 		<data>
-		9dbam9O5FgavcgGXYlOtbd2Xrg8=
+		WQQ1RRudMJg9ukRZQyd8WN1LThU=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/NativeAssetsManifest.json</key>
 		<data>
@@ -122,7 +122,7 @@
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/kernel_blob.bin</key>
 		<data>
-		LMORc9k6HL7xF+DTD/DaMrWnpTI=
+		xz34lFX2yFjm3r+xVgwhsAxZUCs=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
 		<data>
@@ -136,165 +136,61 @@
 		<data>
 		yyq5EcsmxYyBwFjTZrLTRBq4XWU=
 		</data>
-		<key>Frameworks/FirebaseAppCheckInterop.framework/FirebaseAppCheckInterop</key>
+		<key>Frameworks/AppAuth.framework/AppAuth</key>
 		<data>
-		jEWrXBcaTrvug3ZyaR8aoJbhIAc=
+		UNfIcZceyzbYwktFvp6Ium8GJdA=
 		</data>
-		<key>Frameworks/FirebaseAppCheckInterop.framework/Info.plist</key>
+		<key>Frameworks/AppAuth.framework/AppAuthCore_Privacy.bundle/Info.plist</key>
 		<data>
-		iBFPRU/e7fYtPfsVmjWvnTVQJ/o=
+		0sv6O/lmNuEYvbAe+7ShMhHet2U=
 		</data>
-		<key>Frameworks/FirebaseAppCheckInterop.framework/_CodeSignature/CodeResources</key>
+		<key>Frameworks/AppAuth.framework/AppAuthCore_Privacy.bundle/PrivacyInfo.xcprivacy</key>
 		<data>
-		6tSqEyMyMqUYoR6O+asTm68RjD0=
+		MCDRptixYfA+qALBX9b4uxq3rwo=
 		</data>
-		<key>Frameworks/FirebaseAuth.framework/FirebaseAuth</key>
+		<key>Frameworks/AppAuth.framework/Info.plist</key>
 		<data>
-		IJCh5Xw7YWHliV9EfZYYgd8dWEw=
+		d798OtHgVnYEnxknL8M0duAIUnw=
 		</data>
-		<key>Frameworks/FirebaseAuth.framework/FirebaseAuth_Privacy.bundle/Info.plist</key>
+		<key>Frameworks/AppAuth.framework/_CodeSignature/CodeResources</key>
 		<data>
-		ocDz56ZgB3NLB2YjtPElTpvAgek=
+		5hmLj/9oLoTJ0hLP+P7Q93zAj/8=
 		</data>
-		<key>Frameworks/FirebaseAuth.framework/FirebaseAuth_Privacy.bundle/PrivacyInfo.xcprivacy</key>
+		<key>Frameworks/AppCheckCore.framework/AppCheckCore</key>
 		<data>
-		8cQ/rSS7XR8ohTuSAR27mQb1wiU=
+		q10bih61YX4421SoHPjmronW3Ck=
 		</data>
-		<key>Frameworks/FirebaseAuth.framework/Info.plist</key>
+		<key>Frameworks/AppCheckCore.framework/Info.plist</key>
 		<data>
-		D2Nu5A1Ih9y/J+858lp4ngYlKaE=
+		7IMUsC/dIiLeCcmevcQTgWpk2B8=
 		</data>
-		<key>Frameworks/FirebaseAuth.framework/_CodeSignature/CodeResources</key>
+		<key>Frameworks/AppCheckCore.framework/_CodeSignature/CodeResources</key>
 		<data>
-		LclP7wf9EildjmVdd4qqK7hP8fk=
+		Mpt9l8oFTF0beipHKQclHkzPjWI=
 		</data>
-		<key>Frameworks/FirebaseAuthInterop.framework/FirebaseAuthInterop</key>
+		<key>Frameworks/FBLPromises.framework/FBLPromises</key>
 		<data>
-		G8bomJWcTeJWdRubp+3duK8d7To=
+		dF/f1iO/SX13F72EbhXnp3K9k9I=
 		</data>
-		<key>Frameworks/FirebaseAuthInterop.framework/Info.plist</key>
+		<key>Frameworks/FBLPromises.framework/FBLPromises_Privacy.bundle/Info.plist</key>
 		<data>
-		7oLWgPqNF5YUFqQJgZewB8Q6jqw=
+		n3pxewhtDD1f4+R6jm80vcMQOgY=
 		</data>
-		<key>Frameworks/FirebaseAuthInterop.framework/_CodeSignature/CodeResources</key>
+		<key>Frameworks/FBLPromises.framework/FBLPromises_Privacy.bundle/PrivacyInfo.xcprivacy</key>
 		<data>
-		PC9FkVtinc5GJSR4lEuZ6Jleo7M=
+		ZajnvEs/MYRS3X4TPLAhBWi8mc4=
 		</data>
-		<key>Frameworks/FirebaseCore.framework/FirebaseCore</key>
+		<key>Frameworks/FBLPromises.framework/Info.plist</key>
 		<data>
-		MkPgadfbPlQ1A0CyrKT4cZlW6os=
+		ifC33UjQGGtlSqgf/JiIBkJw9ug=
 		</data>
-		<key>Frameworks/FirebaseCore.framework/FirebaseCore_Privacy.bundle/Info.plist</key>
+		<key>Frameworks/FBLPromises.framework/_CodeSignature/CodeResources</key>
 		<data>
-		JXiwyUp6NWg4KwxtPo38JizK6cw=
-		</data>
-		<key>Frameworks/FirebaseCore.framework/FirebaseCore_Privacy.bundle/PrivacyInfo.xcprivacy</key>
-		<data>
-		sa2OhFlqdCIyz9oV7fUdDKWzFL0=
-		</data>
-		<key>Frameworks/FirebaseCore.framework/Info.plist</key>
-		<data>
-		/+Cv/FoRdjUjaprWDWdCa2cT34o=
-		</data>
-		<key>Frameworks/FirebaseCore.framework/_CodeSignature/CodeResources</key>
-		<data>
-		xa17Gy6n9JS6bmJWSLEVH9uyrFM=
-		</data>
-		<key>Frameworks/FirebaseCoreExtension.framework/FirebaseCoreExtension</key>
-		<data>
-		aN910N6VWvWAUTK8DIwvWxDkB4M=
-		</data>
-		<key>Frameworks/FirebaseCoreExtension.framework/FirebaseCoreExtension_Privacy.bundle/Info.plist</key>
-		<data>
-		t4NG9mny4BfPYo2QELnJrWD+xKI=
-		</data>
-		<key>Frameworks/FirebaseCoreExtension.framework/FirebaseCoreExtension_Privacy.bundle/PrivacyInfo.xcprivacy</key>
-		<data>
-		6iBlSEWzrD6zouHx4NqeDhjKSGQ=
-		</data>
-		<key>Frameworks/FirebaseCoreExtension.framework/Info.plist</key>
-		<data>
-		paX6PmlOo1FKyvShnvAjQxxROIE=
-		</data>
-		<key>Frameworks/FirebaseCoreExtension.framework/_CodeSignature/CodeResources</key>
-		<data>
-		NlgMe1vYtKmtBXtJhLPZMqxxcaw=
-		</data>
-		<key>Frameworks/FirebaseCoreInternal.framework/FirebaseCoreInternal</key>
-		<data>
-		1DTxfhrQxsPcaK1Sq7OeIvyusXs=
-		</data>
-		<key>Frameworks/FirebaseCoreInternal.framework/FirebaseCoreInternal_Privacy.bundle/Info.plist</key>
-		<data>
-		vE1p0ZjTNEGWbPYqIQfa3GLBAic=
-		</data>
-		<key>Frameworks/FirebaseCoreInternal.framework/FirebaseCoreInternal_Privacy.bundle/PrivacyInfo.xcprivacy</key>
-		<data>
-		ifoThrqbbqoLG4yjAruMQRaf0Dw=
-		</data>
-		<key>Frameworks/FirebaseCoreInternal.framework/Info.plist</key>
-		<data>
-		52A9/KMkQf5mRxs0Cpi57GXVs40=
-		</data>
-		<key>Frameworks/FirebaseCoreInternal.framework/_CodeSignature/CodeResources</key>
-		<data>
-		NEHXpSABhTCXJGUvez4qocKSjK0=
-		</data>
-		<key>Frameworks/FirebaseFirestore.framework/FirebaseFirestore</key>
-		<data>
-		766tFhD9aPMJboZG0kkZSumq7B4=
-		</data>
-		<key>Frameworks/FirebaseFirestore.framework/FirebaseFirestore_Privacy.bundle/Info.plist</key>
-		<data>
-		gw0yyxwZdts9WmrVuiRV6jDMjLA=
-		</data>
-		<key>Frameworks/FirebaseFirestore.framework/FirebaseFirestore_Privacy.bundle/PrivacyInfo.xcprivacy</key>
-		<data>
-		WXQUJr75eMRgiVnLGyf8Gr3uLUU=
-		</data>
-		<key>Frameworks/FirebaseFirestore.framework/Info.plist</key>
-		<data>
-		zj0dFF7PJtBPK7lXWnwTqDssTdk=
-		</data>
-		<key>Frameworks/FirebaseFirestore.framework/_CodeSignature/CodeResources</key>
-		<data>
-		3yWwRXExbfuxNR7azGmjLxcOX0I=
-		</data>
-		<key>Frameworks/FirebaseFirestoreInternal.framework/FirebaseFirestoreInternal</key>
-		<data>
-		sfm+6zRLVQT8m9c5zf1v1w2+I3A=
-		</data>
-		<key>Frameworks/FirebaseFirestoreInternal.framework/FirebaseFirestoreInternal_Privacy.bundle/Info.plist</key>
-		<data>
-		u3ddSuzwWlQrHujwEGNrvadXZ2s=
-		</data>
-		<key>Frameworks/FirebaseFirestoreInternal.framework/FirebaseFirestoreInternal_Privacy.bundle/PrivacyInfo.xcprivacy</key>
-		<data>
-		WXQUJr75eMRgiVnLGyf8Gr3uLUU=
-		</data>
-		<key>Frameworks/FirebaseFirestoreInternal.framework/Info.plist</key>
-		<data>
-		curQ8RaqZujTLvfeN6//dpA+04M=
-		</data>
-		<key>Frameworks/FirebaseFirestoreInternal.framework/_CodeSignature/CodeResources</key>
-		<data>
-		eUdE0oMMP+kPvyppKjHHX56rdzg=
-		</data>
-		<key>Frameworks/FirebaseSharedSwift.framework/FirebaseSharedSwift</key>
-		<data>
-		D0HMGw7thOOqksBv7Oc8K8AdcYA=
-		</data>
-		<key>Frameworks/FirebaseSharedSwift.framework/Info.plist</key>
-		<data>
-		0dXkHc7XUmearKzbWleE+J99mlo=
-		</data>
-		<key>Frameworks/FirebaseSharedSwift.framework/_CodeSignature/CodeResources</key>
-		<data>
-		iI74Rah8RsrvWwfIPT8ZWWgwOzA=
+		daXUiio6qnjsxjmKiPnYLEd7854=
 		</data>
 		<key>Frameworks/Flutter.framework/Flutter</key>
 		<data>
-		bhRLi0q3RMYk+hdXhObQnRjVkjo=
+		w6fXfmvfhHqsANKXh5wf8/AI8x8=
 		</data>
 		<key>Frameworks/Flutter.framework/Headers/Flutter.h</key>
 		<data>
@@ -388,33 +284,439 @@
 		<data>
 		ipm8hg7aB3LzsfShJfpNR0QQ4hw=
 		</data>
+		<key>Frameworks/GTMAppAuth.framework/GTMAppAuth</key>
+		<data>
+		WFo+OJRefnwwEeoSDzaVXEhvfEg=
+		</data>
+		<key>Frameworks/GTMAppAuth.framework/GTMAppAuth_Privacy.bundle/Info.plist</key>
+		<data>
+		yCo02E4qEoNp8xx/pE7iHWvYINU=
+		</data>
+		<key>Frameworks/GTMAppAuth.framework/GTMAppAuth_Privacy.bundle/PrivacyInfo.xcprivacy</key>
+		<data>
+		AL1dh5ctObXBjoBiabSJ86M3HQs=
+		</data>
+		<key>Frameworks/GTMAppAuth.framework/Info.plist</key>
+		<data>
+		BjzOjSf7HIZMCzDuOJ4SZJdloFU=
+		</data>
+		<key>Frameworks/GTMAppAuth.framework/_CodeSignature/CodeResources</key>
+		<data>
+		mMVsEsXixlYwAQ/ijtZf1FIjYUc=
+		</data>
 		<key>Frameworks/GTMSessionFetcher.framework/GTMSessionFetcher</key>
 		<data>
-		UUphYy4IpOB9kb5JV595iU9eqkg=
+		A/DGI64zVMXrZA6T1ZjWeNBuo0U=
 		</data>
 		<key>Frameworks/GTMSessionFetcher.framework/GTMSessionFetcher_Core_Privacy.bundle/Info.plist</key>
 		<data>
-		OIIVWeuYGRLNCJ+buS0O3fqB1AU=
+		bmpi/9WFTQilCu21VZupL/hvDVU=
 		</data>
 		<key>Frameworks/GTMSessionFetcher.framework/GTMSessionFetcher_Core_Privacy.bundle/PrivacyInfo.xcprivacy</key>
 		<data>
 		GqeAMkwbcNQeG0K4qQhQh2vHhHo=
 		</data>
+		<key>Frameworks/GTMSessionFetcher.framework/GTMSessionFetcher_Full_Privacy.bundle/Info.plist</key>
+		<data>
+		nuNDNqHOGGXXORGgP9Z8AXJ1kOw=
+		</data>
+		<key>Frameworks/GTMSessionFetcher.framework/GTMSessionFetcher_Full_Privacy.bundle/PrivacyInfo.xcprivacy</key>
+		<data>
+		ZajnvEs/MYRS3X4TPLAhBWi8mc4=
+		</data>
 		<key>Frameworks/GTMSessionFetcher.framework/Info.plist</key>
 		<data>
-		X7xtttudJ8OTtAzwObTjzH3xb/0=
+		Tc+wtU5VZu5OdwNhUDTXoWFKohQ=
 		</data>
 		<key>Frameworks/GTMSessionFetcher.framework/_CodeSignature/CodeResources</key>
 		<data>
-		VgznoMeNuk0VA9LtJjzFcL+6/Ek=
+		49IoCC0YzL+AcK54yxpro57qyK4=
+		</data>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn</key>
+		<data>
+		WI7mmBTIOxy+832xOqK1gqOeKHc=
+		</data>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/Info.plist</key>
+		<data>
+		uDLuiiVsG4Uuw2IaYFWDSmwlqaA=
+		</data>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/PrivacyInfo.xcprivacy</key>
+		<data>
+		Bpn4ciS1QfdDGVc7S27q+o0IUEM=
+		</data>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/Roboto-Bold.ttf</key>
+		<data>
+		RzJ98PNefNfIZFh0iXp0SWl1RK4=
+		</data>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/ar.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			1U4RM14vSknB5uPRHwbBf2P3L9k=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/ca.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			GWFStbBzSsozR8ndnlnCGWrVgIE=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/cs.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			rkKd2a1WbhspF12uj7jbNaxdcsw=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/da.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			CH8u4ji0ph6g0lWmwFmjuWeHjcQ=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/de.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			h9KGBhz6GBwN3U8va+ZhDVBbEsk=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/el.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			Sa1DzFvme+rejqFjRGh0R8Wvi2U=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/en.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			abhi3BU5/ZWaUMKlntWlHWqGpfk=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/en_GB.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			iMO9o55MsPkZZzMfqxaQRohEIEs=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/es.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			M6+vCrtORDxDSYRfCs0EQa/NF7E=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/es_MX.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			rOsbQGNRZKkOBW4HhfQBTWwEQyI=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/fi.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			gWfyNCqhd30Y2+42oIuL/HWmczg=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/fr.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			uazilWliTrW6MuAL6umfC/8JA2w=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/fr_CA.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			Esz3mlwnuaEJRGq9Kux4r37SBuQ=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/google.png</key>
+		<data>
+		aRs/zX73YrSGLLTP8EMEDJQGeTs=
+		</data>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/google@2x.png</key>
+		<data>
+		xu0SOLMY2id0HRzRihn0qsuFhAc=
+		</data>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/google@3x.png</key>
+		<data>
+		xbEbn7T4aiYsnIp0S2SVilad3d0=
+		</data>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/he.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			ui2oaT67k0R8hevxOaYRPvkBncY=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/hi.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			kZvr7XJerhHMM69PkXbnvBFp03o=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/hr.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			f1AChdyqugygMHLDk8gT3Dci+JI=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/hu.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			BSoNTBIf4kWxwJJhk3j4LqTytTQ=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/id.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			Frdz7EAjoTfEGLrt45QOxezjzXY=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/it.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			ip22TOlHApPdL0R4Op+px9lnPt4=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/ja.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			sX0ftdSQz9WqdXlSCYZn0tktc/0=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/ko.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			MXfc9JCBsSmgxmJ3xfMpVntvLfE=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/ms.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			ZjmLydbxaQLSdIBGmX5LQQXMfhQ=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/nb.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			8kbG/vzCsprxXEBLWQPjsZYsmSM=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/nl.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			/CN7CHAVyaosf4bXVc5GxzC2Zbc=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/pl.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			IBrsi/T3mBKZccejeg+eKu+eLC8=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/pt.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			a2Crth0x+hSdaEGM4YAiNqZxYKg=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/pt_BR.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			a2Crth0x+hSdaEGM4YAiNqZxYKg=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/pt_PT.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			d90ZsiztKcH6gT0M2GNhS9budLg=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/ro.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			wH6Vf08sJ8KKd++qPXetaXtSSEg=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/ru.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			dzPNIKMH551ZsL1tfx25Qj7g2fs=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/sk.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			ltpfHSCCPpO3bQBP56jjt96+d90=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/sv.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			6zdaseAWNL3CgzM6rhievkeYLBY=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/th.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			jVVTwNkGABxQFM8h9aPRJ1fS2Pk=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/tr.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			4d5pvCFyTpDBY/o+3RsxJ8zqLdI=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/uk.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			7AbLARiohKfq0KKpDOoXJxq3L38=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/vi.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			QTbqZVk6kNI316gFQkdgXuOnQpw=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/zh_CN.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			Sf0rT0s1gLnj2sAnAlTyCH4vbP0=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/zh_TW.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			lC5m5fk6gdtQtz8GphGC/3aPagU=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/Info.plist</key>
+		<data>
+		cNabHA+TJuU14Uo3c9b2JVFUrYI=
+		</data>
+		<key>Frameworks/GoogleSignIn.framework/_CodeSignature/CodeResources</key>
+		<data>
+		TbBsq9XYUR9F9PchqNy7ihJ6NLY=
 		</data>
 		<key>Frameworks/GoogleUtilities.framework/GoogleUtilities</key>
 		<data>
-		ndAOirSx7eWAXcT89xHMigkuWEQ=
+		4OqXsgCadqWwGXtmDtCbY0aBgIM=
 		</data>
 		<key>Frameworks/GoogleUtilities.framework/GoogleUtilities_Privacy.bundle/Info.plist</key>
 		<data>
-		eOVBesqgLHX8XDIDUInULz1ZJ7I=
+		bm2kiXMRa66a4Myq4JT+MpQUVy0=
 		</data>
 		<key>Frameworks/GoogleUtilities.framework/GoogleUtilities_Privacy.bundle/PrivacyInfo.xcprivacy</key>
 		<data>
@@ -422,43 +724,43 @@
 		</data>
 		<key>Frameworks/GoogleUtilities.framework/Info.plist</key>
 		<data>
-		zStdVTwBgSvHB1wasbQc+BB49vo=
+		tEB21l329LGw0eYtVnTPxnBYR70=
 		</data>
 		<key>Frameworks/GoogleUtilities.framework/_CodeSignature/CodeResources</key>
 		<data>
-		P94K+35NXuMSfi5gWHnJXNvg+T0=
+		NMJVU4hsthVUsUUW/vv8N30GbhE=
+		</data>
+		<key>Frameworks/Promises.framework/Info.plist</key>
+		<data>
+		SZpanFPcw30jPzxmoIRV54JcDUM=
+		</data>
+		<key>Frameworks/Promises.framework/Promises</key>
+		<data>
+		H+FdqLjtF60AaJFnhld8fIKqWv8=
+		</data>
+		<key>Frameworks/Promises.framework/Promises_Privacy.bundle/Info.plist</key>
+		<data>
+		fE+FqDUdK+WqH4UhokTr+q/WRaI=
+		</data>
+		<key>Frameworks/Promises.framework/Promises_Privacy.bundle/PrivacyInfo.xcprivacy</key>
+		<data>
+		ZajnvEs/MYRS3X4TPLAhBWi8mc4=
+		</data>
+		<key>Frameworks/Promises.framework/_CodeSignature/CodeResources</key>
+		<data>
+		7mTp/qFkycLCCvsgKrIMt7jVLk8=
 		</data>
 		<key>Frameworks/RecaptchaInterop.framework/Info.plist</key>
 		<data>
-		xmadd6E1kjZxFKaaOSDd4vCMJKA=
+		2EHC2frUvCPSM/f4R9Yhp/vdib0=
 		</data>
 		<key>Frameworks/RecaptchaInterop.framework/RecaptchaInterop</key>
 		<data>
-		OqYYry2LIArAE+lNlrOzT+IfOBA=
+		St0lFn4/4pIZPIYxReMMfKKxGwc=
 		</data>
 		<key>Frameworks/RecaptchaInterop.framework/_CodeSignature/CodeResources</key>
 		<data>
-		i7uT4t6rVJIWAvWgbuH6wkXQIUA=
-		</data>
-		<key>Frameworks/absl.framework/Info.plist</key>
-		<data>
-		LbG9vzb0PnNUGXRSPZ9Sn/LhGDw=
-		</data>
-		<key>Frameworks/absl.framework/_CodeSignature/CodeResources</key>
-		<data>
-		I9i1gx/rVhfCwUCpyLwU713w/MA=
-		</data>
-		<key>Frameworks/absl.framework/absl</key>
-		<data>
-		nI9bDUVfVC1Yg2O1ccOCXl1CU+g=
-		</data>
-		<key>Frameworks/absl.framework/xcprivacy.bundle/Info.plist</key>
-		<data>
-		+8LTfbKghL6RC+5PS7gNCffFWyc=
-		</data>
-		<key>Frameworks/absl.framework/xcprivacy.bundle/PrivacyInfo.xcprivacy</key>
-		<data>
-		i3YpomTpJHpRGpdt+oGaesmknBg=
+		24P2zgV8x5QCR+JkWU3kEgmM75I=
 		</data>
 		<key>Frameworks/app_links.framework/Info.plist</key>
 		<data>
@@ -480,54 +782,6 @@
 		<data>
 		W859JDVykxWZ0aYvnTEJCgiAYio=
 		</data>
-		<key>Frameworks/grpc.framework/Info.plist</key>
-		<data>
-		xp01GpSOaE7izZy9jFFRFDhn3GE=
-		</data>
-		<key>Frameworks/grpc.framework/_CodeSignature/CodeResources</key>
-		<data>
-		Tyoz2VcRFtNlrHegQMZfs116GJQ=
-		</data>
-		<key>Frameworks/grpc.framework/grpc</key>
-		<data>
-		OKf1H1HE8s3F6TJsd63aJ3Nfcs0=
-		</data>
-		<key>Frameworks/grpc.framework/grpc.bundle/Info.plist</key>
-		<data>
-		6Y/Tk4xjDhVuiWcBoJd2OHxaiXk=
-		</data>
-		<key>Frameworks/grpc.framework/grpc.bundle/PrivacyInfo.xcprivacy</key>
-		<data>
-		PFHYbs0V3eUFDWQyYQcwEetuqEk=
-		</data>
-		<key>Frameworks/grpcpp.framework/Info.plist</key>
-		<data>
-		IRJps9j/zXI7eZqlt+cmlZ5MKWk=
-		</data>
-		<key>Frameworks/grpcpp.framework/_CodeSignature/CodeResources</key>
-		<data>
-		uRbWTD3vdDDVb7/9i1tGJBjoDEw=
-		</data>
-		<key>Frameworks/grpcpp.framework/gRPCCertificates-Cpp.bundle/Info.plist</key>
-		<data>
-		9WheRPLuoYLhHS19jnCrwwjRy+Q=
-		</data>
-		<key>Frameworks/grpcpp.framework/gRPCCertificates-Cpp.bundle/roots.pem</key>
-		<data>
-		fKPpDnXJArmBT4pB8zmpeWVIzCc=
-		</data>
-		<key>Frameworks/grpcpp.framework/grpcpp</key>
-		<data>
-		oAtXiwZb2wQR7W1xKW2PYZAH9xI=
-		</data>
-		<key>Frameworks/grpcpp.framework/grpcpp.bundle/Info.plist</key>
-		<data>
-		m6xpZRbv/HZsQKNqT3QQAl0h2DU=
-		</data>
-		<key>Frameworks/grpcpp.framework/grpcpp.bundle/PrivacyInfo.xcprivacy</key>
-		<data>
-		PFHYbs0V3eUFDWQyYQcwEetuqEk=
-		</data>
 		<key>Frameworks/image_picker_ios.framework/Info.plist</key>
 		<data>
 		t0P9z4s6cSdR33AxilCM23/H3GA=
@@ -547,66 +801,6 @@
 		<key>Frameworks/image_picker_ios.framework/image_picker_ios_privacy.bundle/PrivacyInfo.xcprivacy</key>
 		<data>
 		/LX0ZlwxwIAIhjZaDB8EiH5KpXA=
-		</data>
-		<key>Frameworks/leveldb.framework/Info.plist</key>
-		<data>
-		cPGTBGMIy2OrZ2uCbd8+g1d2wAI=
-		</data>
-		<key>Frameworks/leveldb.framework/_CodeSignature/CodeResources</key>
-		<data>
-		LoQ81LSx4rvbEKcKO2YmT5HpRhg=
-		</data>
-		<key>Frameworks/leveldb.framework/leveldb</key>
-		<data>
-		TRx6SIIqQ0Iw/nJzeO3HD8Nk/ck=
-		</data>
-		<key>Frameworks/leveldb.framework/leveldb_Privacy.bundle/Info.plist</key>
-		<data>
-		vyvpBiUwdVotxMVXh75kzlPO6vM=
-		</data>
-		<key>Frameworks/leveldb.framework/leveldb_Privacy.bundle/PrivacyInfo.xcprivacy</key>
-		<data>
-		JTGYQTSkuJ7uGfD1SfjQTq3ngyk=
-		</data>
-		<key>Frameworks/nanopb.framework/Info.plist</key>
-		<data>
-		WCwTZMYuscGi+4S3hAjs1qvF0dQ=
-		</data>
-		<key>Frameworks/nanopb.framework/_CodeSignature/CodeResources</key>
-		<data>
-		/KwuQipgMSQbYKoKhYn9bJ+7Oag=
-		</data>
-		<key>Frameworks/nanopb.framework/nanopb</key>
-		<data>
-		TfSUMA5kxzCoA4pw+A+9RU73R+Q=
-		</data>
-		<key>Frameworks/nanopb.framework/nanopb_Privacy.bundle/Info.plist</key>
-		<data>
-		wGc7SvBLPvj4YqCgTgboRdDApNU=
-		</data>
-		<key>Frameworks/nanopb.framework/nanopb_Privacy.bundle/PrivacyInfo.xcprivacy</key>
-		<data>
-		KY5lfwC2TvsgFj4wt7hkMmainbs=
-		</data>
-		<key>Frameworks/openssl_grpc.framework/Info.plist</key>
-		<data>
-		HRQaLzjlPIffv5HPVeib9Id3e6A=
-		</data>
-		<key>Frameworks/openssl_grpc.framework/_CodeSignature/CodeResources</key>
-		<data>
-		8+Rlw0WDm9a4vFL0ru62tSwNPLE=
-		</data>
-		<key>Frameworks/openssl_grpc.framework/openssl_grpc</key>
-		<data>
-		7eTZx4wEPhxAlpB3M6c7Y++qu+U=
-		</data>
-		<key>Frameworks/openssl_grpc.framework/openssl_grpc.bundle/Info.plist</key>
-		<data>
-		c3mvlj4FnPyCPJ6mrcQRIoIwGFk=
-		</data>
-		<key>Frameworks/openssl_grpc.framework/openssl_grpc.bundle/PrivacyInfo.xcprivacy</key>
-		<data>
-		PFHYbs0V3eUFDWQyYQcwEetuqEk=
 		</data>
 		<key>Frameworks/path_provider_foundation.framework/Info.plist</key>
 		<data>
@@ -674,7 +868,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		LaA0RPeX+B0i6e03lEWEE0Y+1VY=
+		ua04jo+Krzhu8rfLvE7Wf5kn6b8=
 		</data>
 		<key>PkgInfo</key>
 		<data>
@@ -682,11 +876,19 @@
 		</data>
 		<key>Runner.debug.dylib</key>
 		<data>
-		B8eFr3AUmu1uCqHm16pHqbOeTwo=
+		ow1B3cz3/gYRCQOQidm57ObCYes=
 		</data>
 		<key>__preview.dylib</key>
 		<data>
 		SJUQraKBDGhR/0mBiEDIj87YG50=
+		</data>
+		<key>google_sign_in_ios_privacy.bundle/Info.plist</key>
+		<data>
+		qBrraJJIyI9JhDCnsJuQSYrO9GI=
+		</data>
+		<key>google_sign_in_ios_privacy.bundle/PrivacyInfo.xcprivacy</key>
+		<data>
+		/LX0ZlwxwIAIhjZaDB8EiH5KpXA=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -765,7 +967,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			i/wFelntHq9ioUn/rb2QpY964fLu0iwL8SQww7pltNE=
+			sGilgrJSS3vq75npSa0iyYLFb+P4hXDsVaEObE54VU8=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/Info.plist</key>
@@ -779,14 +981,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			/RZJom5VCXjfP8R7emnVL8hjSH9xJ26WIopYccrZ5dg=
+			P6WixAhONMamSoB+cIVZRc+votsBtDsCItMkA6mAsLc=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/.env</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			wpND7uWA25JtXNZX5TmIlKrEX7W0oUGFWp0yjAW+kls=
+			lnjBW6RwjvCZ6h7O0rnLSEUQZyth+c3UzieHZehGNsc=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/AssetManifest.bin</key>
@@ -814,7 +1016,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			clcbNaZ5QxRF76qma1v9m7lxEAwCXDt8TLrE24mkemw=
+			1x/QRzuP9YBs0mQabs7trjxqL7XYltFUmGNkPVpT/BU=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/NativeAssetsManifest.json</key>
@@ -898,7 +1100,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			etUxQvxBxdXPt0rY80vn2q9mUE0YEpOW5pf+hCw8dFw=
+			hD5ZI8lhfFFy76ScLkKcR4eGLBr76IdyDHMXSjjiy7o=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
@@ -922,284 +1124,102 @@
 			9GUhMA+MB30KbahT/4tgci98x/CLK+R2R7dFrti99M8=
 			</data>
 		</dict>
-		<key>Frameworks/FirebaseAppCheckInterop.framework/FirebaseAppCheckInterop</key>
+		<key>Frameworks/AppAuth.framework/AppAuth</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			2tojFDw9d8R4q3gI7vI/MUIDSsfW7yPJLoIp9zpVtRw=
+			udaLKqyiYUoKD2H+HgDgMVVDbBakpThAvXaM5wV0miA=
 			</data>
 		</dict>
-		<key>Frameworks/FirebaseAppCheckInterop.framework/Info.plist</key>
+		<key>Frameworks/AppAuth.framework/AppAuthCore_Privacy.bundle/Info.plist</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			6dUGmjQBAEm1GHlU8mckxXYZ17sZ1sfwdON2Pv2BCac=
+			l5fwHVtUk1YoXp4agCGFNN76vnDZvWR+tm38Y1sGaDw=
 			</data>
 		</dict>
-		<key>Frameworks/FirebaseAppCheckInterop.framework/_CodeSignature/CodeResources</key>
+		<key>Frameworks/AppAuth.framework/AppAuthCore_Privacy.bundle/PrivacyInfo.xcprivacy</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			j/dOXsvFaxJGwlX49pke9SrSYfduTrYHnR6H9ciiLsk=
+			Wt6WL6rqHt273QbEz4qHLOxVT2TFWgDgATYATTeOHO0=
 			</data>
 		</dict>
-		<key>Frameworks/FirebaseAuth.framework/FirebaseAuth</key>
+		<key>Frameworks/AppAuth.framework/Info.plist</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			BWps6C9WoklmCvCF/Fyg/jursfyRcE38AqVJhWeVIdo=
+			vU3HebgdsPeWLTdapwzfFW0ASxvbVcvOVo4lgT1mzPw=
 			</data>
 		</dict>
-		<key>Frameworks/FirebaseAuth.framework/FirebaseAuth_Privacy.bundle/Info.plist</key>
+		<key>Frameworks/AppAuth.framework/_CodeSignature/CodeResources</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			XftmiQaZcDWqQR9dgaTWSFZj8O3nvsMgQD0u5YqbIrM=
+			MF1eiS13IFhsYfsb1UuvR9PIS6HoCIBR7dtTzXBm+Js=
 			</data>
 		</dict>
-		<key>Frameworks/FirebaseAuth.framework/FirebaseAuth_Privacy.bundle/PrivacyInfo.xcprivacy</key>
+		<key>Frameworks/AppCheckCore.framework/AppCheckCore</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			BMFi6vpJss7QZjIxqJzJ9Xk1BsgCtoSGcZtdoGCK79U=
+			nM55F17lMAqM46wJYg7V8xS+acIslkweVpZCdviYIS0=
 			</data>
 		</dict>
-		<key>Frameworks/FirebaseAuth.framework/Info.plist</key>
+		<key>Frameworks/AppCheckCore.framework/Info.plist</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			byA5Nmsjf5zGvuQqqrIG5apV2UwAfAh6VaQmc6PrOnY=
+			K2oBBIpF8u8vC0wQvfwW2OYY96/u07wx2WbNm6uhwwE=
 			</data>
 		</dict>
-		<key>Frameworks/FirebaseAuth.framework/_CodeSignature/CodeResources</key>
+		<key>Frameworks/AppCheckCore.framework/_CodeSignature/CodeResources</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			ocTZnczxSjkfAAon+/5PDN96hOOb6FRh/GCJz70pFrM=
+			LX6AWM9HCI+BYubfVFOW/Vb0rdDY9dUPMCjAwr4Fx58=
 			</data>
 		</dict>
-		<key>Frameworks/FirebaseAuthInterop.framework/FirebaseAuthInterop</key>
+		<key>Frameworks/FBLPromises.framework/FBLPromises</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			6A8CnJlh1gLmDLTrtPdja5FS1R9kq4g0tTwRKokxCrU=
+			YK5jHdiyC/CgBaTqG9uQW9BAPFeBK7SIcfdzr0Hlsns=
 			</data>
 		</dict>
-		<key>Frameworks/FirebaseAuthInterop.framework/Info.plist</key>
+		<key>Frameworks/FBLPromises.framework/FBLPromises_Privacy.bundle/Info.plist</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			rvVQxtyBfmf9Xx4C8GMSSCypaeMV7xDHTqowZ8Ua0M0=
+			uFNt4ii3rVonzROSe2bfyKxLrv0ilc/n+w7et2LHKxk=
 			</data>
 		</dict>
-		<key>Frameworks/FirebaseAuthInterop.framework/_CodeSignature/CodeResources</key>
+		<key>Frameworks/FBLPromises.framework/FBLPromises_Privacy.bundle/PrivacyInfo.xcprivacy</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			i7J6zWJY8+ZgtAyfP+8b/M8zJ+sCx2wcg0TVQXaHBB0=
+			dLDNcvwjwe8wLyLuJ1P2GBfNxa8P96fy0GMrUk+4rOo=
 			</data>
 		</dict>
-		<key>Frameworks/FirebaseCore.framework/FirebaseCore</key>
+		<key>Frameworks/FBLPromises.framework/Info.plist</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			vhV2iSncl7F2/GX0MKZb4WQ/XUUCkvq5iskoAM0H3yA=
+			J8rFSbmL+ZlqH8Sz16XDc6CaQlmubQcnh3etluwI94c=
 			</data>
 		</dict>
-		<key>Frameworks/FirebaseCore.framework/FirebaseCore_Privacy.bundle/Info.plist</key>
+		<key>Frameworks/FBLPromises.framework/_CodeSignature/CodeResources</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			1wWor27MrhGpYYeMPZV5aWu4OtuqVPokUa7t4V6PFvE=
-			</data>
-		</dict>
-		<key>Frameworks/FirebaseCore.framework/FirebaseCore_Privacy.bundle/PrivacyInfo.xcprivacy</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			EeMfX2tg6A69WQFUn85QQ/mvPmg/h0AilFAAtAUwbD8=
-			</data>
-		</dict>
-		<key>Frameworks/FirebaseCore.framework/Info.plist</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			tqiS+99VqAmXprX12qck8GR6w2eImxvGuqSmWNvdPF0=
-			</data>
-		</dict>
-		<key>Frameworks/FirebaseCore.framework/_CodeSignature/CodeResources</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			lUCefd6Fny+iyRO0JFPyPAbtVXqpNcpKL/jtBGaJojI=
-			</data>
-		</dict>
-		<key>Frameworks/FirebaseCoreExtension.framework/FirebaseCoreExtension</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			9L0LTxr4sMPsZqFQmOUwp3K6EdNiMAACQQ7A/P+RqOk=
-			</data>
-		</dict>
-		<key>Frameworks/FirebaseCoreExtension.framework/FirebaseCoreExtension_Privacy.bundle/Info.plist</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			Sds5zsnX5j0rV6B36OwiHA26hmajHZWW+m48w0eyijM=
-			</data>
-		</dict>
-		<key>Frameworks/FirebaseCoreExtension.framework/FirebaseCoreExtension_Privacy.bundle/PrivacyInfo.xcprivacy</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			E3fszt/4+DIPeAQOnJ0+F+zA6laVlLVq8O8XvkQZfHo=
-			</data>
-		</dict>
-		<key>Frameworks/FirebaseCoreExtension.framework/Info.plist</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			zHJNO6kn5+qjAK8oZV9P+8mZTMHxdiDJTM2oJKaAKaY=
-			</data>
-		</dict>
-		<key>Frameworks/FirebaseCoreExtension.framework/_CodeSignature/CodeResources</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			ixb3c8qiJ9OwBxSQX3DF9lsokddyzcBzJ2MEIL49XAk=
-			</data>
-		</dict>
-		<key>Frameworks/FirebaseCoreInternal.framework/FirebaseCoreInternal</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			mJLQuWLlDacPRxECpwotN6/4dupDXYHoMRimwsAJB8c=
-			</data>
-		</dict>
-		<key>Frameworks/FirebaseCoreInternal.framework/FirebaseCoreInternal_Privacy.bundle/Info.plist</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			FfMoJL3DzhJC026D0WXGbSaQf3awiPW9oLKAaRy4yRA=
-			</data>
-		</dict>
-		<key>Frameworks/FirebaseCoreInternal.framework/FirebaseCoreInternal_Privacy.bundle/PrivacyInfo.xcprivacy</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			W3/peUI97ePgivwppC8A9ghiddxUioTCl3QjWGPu0+8=
-			</data>
-		</dict>
-		<key>Frameworks/FirebaseCoreInternal.framework/Info.plist</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			l9ha0FYkqAXnkH5HnztQAZd2XhHKfWUurJGylX0IOC0=
-			</data>
-		</dict>
-		<key>Frameworks/FirebaseCoreInternal.framework/_CodeSignature/CodeResources</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			fiX+JS2s+mOp6rTDh8VWyjp3YCy5Rn1fvUA2u3Yl4xI=
-			</data>
-		</dict>
-		<key>Frameworks/FirebaseFirestore.framework/FirebaseFirestore</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			BbM9aBAex98+sWXpQMPYp+r8Ur702/ffEEY2/fGijxI=
-			</data>
-		</dict>
-		<key>Frameworks/FirebaseFirestore.framework/FirebaseFirestore_Privacy.bundle/Info.plist</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			loaxgD5JuJykndQD0W0sTBWwWGZr8lzsdLyrZcGNyCg=
-			</data>
-		</dict>
-		<key>Frameworks/FirebaseFirestore.framework/FirebaseFirestore_Privacy.bundle/PrivacyInfo.xcprivacy</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			z7s8T3ambVNpi66R9xEMAPIUjm5vE619MlkpCbwBDlE=
-			</data>
-		</dict>
-		<key>Frameworks/FirebaseFirestore.framework/Info.plist</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			7p1+BFSMBHhJQqdkqc7AYEYYVk5VkdpxmeNKKI98hJ0=
-			</data>
-		</dict>
-		<key>Frameworks/FirebaseFirestore.framework/_CodeSignature/CodeResources</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			UKEHRhY5OEeW5Dju4+ZEMhq6RSNx47BZL2pWSVhhefc=
-			</data>
-		</dict>
-		<key>Frameworks/FirebaseFirestoreInternal.framework/FirebaseFirestoreInternal</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			k45ALdobUfZZ4nDCu3Ks4KzW+UWB8uGnyFtyHK3LBis=
-			</data>
-		</dict>
-		<key>Frameworks/FirebaseFirestoreInternal.framework/FirebaseFirestoreInternal_Privacy.bundle/Info.plist</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			iX0Co1bHZK/j2xUAmiwXwD2j6nf9Yxvgxp36nPlxE3w=
-			</data>
-		</dict>
-		<key>Frameworks/FirebaseFirestoreInternal.framework/FirebaseFirestoreInternal_Privacy.bundle/PrivacyInfo.xcprivacy</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			z7s8T3ambVNpi66R9xEMAPIUjm5vE619MlkpCbwBDlE=
-			</data>
-		</dict>
-		<key>Frameworks/FirebaseFirestoreInternal.framework/Info.plist</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			mIVbuTDsJ5/YebOwnf+CKDZy2oDmbAQ8xoLabQNIulY=
-			</data>
-		</dict>
-		<key>Frameworks/FirebaseFirestoreInternal.framework/_CodeSignature/CodeResources</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			Q0PMoRGA0UY0EJIef8uC/dvZNQ0+CuGtFRg4mTzePiE=
-			</data>
-		</dict>
-		<key>Frameworks/FirebaseSharedSwift.framework/FirebaseSharedSwift</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			KTX52DK5NQDes5Mua114vMYOYqefIhg/HfzNcwy8AN0=
-			</data>
-		</dict>
-		<key>Frameworks/FirebaseSharedSwift.framework/Info.plist</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			qn8ycKKNc0EtcAz04wqzDhfnxHW4ZvdOAUP7p1RjiIU=
-			</data>
-		</dict>
-		<key>Frameworks/FirebaseSharedSwift.framework/_CodeSignature/CodeResources</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			kOkFQPhXoVHmvPTKLL5UEuGI/qV+9HwuIOABtAafjUk=
+			Mxr6ZCeUdfXOz0Uz1NEaTzGUbqZTOOqHGzgzkILG2r0=
 			</data>
 		</dict>
 		<key>Frameworks/Flutter.framework/Flutter</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			D72DLalHdD015Yu33JyBpMw6A2aFSmYNRM9wH40Wzrw=
+			qPrbkgbhWGCWi520LqnX6kQds3TvsSqLSOLtSWUDQdo=
 			</data>
 		</dict>
 		<key>Frameworks/Flutter.framework/Headers/Flutter.h</key>
@@ -1363,18 +1383,53 @@
 			wSU3Ai74GJkae/7UGnbY1q6WL/vA5lEax2Kl0IRef3w=
 			</data>
 		</dict>
+		<key>Frameworks/GTMAppAuth.framework/GTMAppAuth</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			PrqdEWoL1pDfert9o5uCzR/Fh2+G7zOaZ6rNTaABIng=
+			</data>
+		</dict>
+		<key>Frameworks/GTMAppAuth.framework/GTMAppAuth_Privacy.bundle/Info.plist</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			iYSIhtQe5BI262m7uOK6lIa8tSLnFwCb6CUMmAIxTJI=
+			</data>
+		</dict>
+		<key>Frameworks/GTMAppAuth.framework/GTMAppAuth_Privacy.bundle/PrivacyInfo.xcprivacy</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			WpuPwM3bECAbtHzCgEs/AExyUUdmItJb/E61TtRuEIQ=
+			</data>
+		</dict>
+		<key>Frameworks/GTMAppAuth.framework/Info.plist</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			a51ShNAURV8nTOe43aa/xnRUH9vACnEMYfRqmEQQXt0=
+			</data>
+		</dict>
+		<key>Frameworks/GTMAppAuth.framework/_CodeSignature/CodeResources</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			8mlWpiu8k72JozzNth+AX5SAxLNQWR+/rhPIGkGOuWc=
+			</data>
+		</dict>
 		<key>Frameworks/GTMSessionFetcher.framework/GTMSessionFetcher</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			gP2Xx07hkczEB23nnbo18kg/4CJrPgIGarysJC+7dGo=
+			UTPt5RBZtSkZhCGJQdazhLJvFSjQ3paqme6tFEf675s=
 			</data>
 		</dict>
 		<key>Frameworks/GTMSessionFetcher.framework/GTMSessionFetcher_Core_Privacy.bundle/Info.plist</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			otGEox/nD2h9dXYAxp+jw6AJjQ4olBjT2JbHL3DbWRk=
+			FrmTjmCKmq6OHnJ2wjXTKyhuPsvBUcQu7GY/alxQzxE=
 			</data>
 		</dict>
 		<key>Frameworks/GTMSessionFetcher.framework/GTMSessionFetcher_Core_Privacy.bundle/PrivacyInfo.xcprivacy</key>
@@ -1384,32 +1439,451 @@
 			PkqTy+hqzvfdfgY6KMhJmS9Vbn9SytxfN8HosOG1RoY=
 			</data>
 		</dict>
+		<key>Frameworks/GTMSessionFetcher.framework/GTMSessionFetcher_Full_Privacy.bundle/Info.plist</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			EkRS9qgPYXvAj0LVZLGrcrHp8KMbS/OZzj1AM+LjmTw=
+			</data>
+		</dict>
+		<key>Frameworks/GTMSessionFetcher.framework/GTMSessionFetcher_Full_Privacy.bundle/PrivacyInfo.xcprivacy</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			dLDNcvwjwe8wLyLuJ1P2GBfNxa8P96fy0GMrUk+4rOo=
+			</data>
+		</dict>
 		<key>Frameworks/GTMSessionFetcher.framework/Info.plist</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			yp3bpIIAyN05PsZ/XXCH7F1rdWoWwJiyvJogb9Je6Q0=
+			cIDmTQCX5R6iDOJKuofcM50h7MvQPBI1MFtwXZfIE3A=
 			</data>
 		</dict>
 		<key>Frameworks/GTMSessionFetcher.framework/_CodeSignature/CodeResources</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			X/9YSOFDhEKmhqeFqTR9Z+GILWjcgQFabbQLHYDDnoc=
+			XiqQQeUB69RDjItwm9aVXb9WknJc99NIs9DwhTMltuA=
+			</data>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			ldTulDDVddlYoXzkURp73DsC6Yk31iSDYzFyfE027D0=
+			</data>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/Info.plist</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			cMxlrpob7sOS9uPg9yWzD21zcLfzU22mwjvEMrxbJTU=
+			</data>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/PrivacyInfo.xcprivacy</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			kwCXKFMJb31XDWxKS/cVKjbHmOicTw2B07TGtd+t39A=
+			</data>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/Roboto-Bold.ttf</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			WU10pJ4we+fMnh7l8QI2hOaCDPEbzJaL7lkDkeGtWlo=
+			</data>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/ar.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			ss+ejZ/IrQ+WELPlTvC4tJTwIbf6I6zvYJSyIFq+jHI=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/ca.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			M+iP9QDcPbJGLirJM8EcKJKfrTUfV7Pm1irERhCtYao=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/cs.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			UdoIYkwqed5HyBaDsp6KE0SkeIdWO+JW4ad6Z/a+NUQ=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/da.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			6CYblkbY6on3v3phpzrtzjD+UfaKqUfsvf6Mx+BNt9o=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/de.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			Fs1BPfGrd+UJ33b4c6Wmh//PNgsfFQdD2TTFqzN3wig=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/el.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			nMDBNJz2Zfx3MzDTGiYo9gCkPKqLXIgLA0pWZ/jw+rw=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/en.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			xyajnDguPxp8H1js9HD4EtomN0n5MNqH98DDqg7GSMI=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/en_GB.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			or14KgUbGgs8Q37Gox6b9/Z3iZWnKswyoOtKY5mtGsI=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/es.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			UB5ExPO7nAWxMpfGAkD9Dhbnn4pj5vslGYII3LlCHKY=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/es_MX.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			hNMnxxl7flSaHp6Ni7PhywLgKCxjI+X7Pd4KRzla9jQ=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/fi.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			DpnzGonq2MwPxyrWq9zISr0m9pkmXu/2GoibNznadzs=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/fr.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			tVE4d6zy15yPDq/3/N5KoWXzq7AWEbYGESYC/UQ3d7o=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/fr_CA.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			9xCSzz/bp+PgPQ2ZdIN4sRGUfKd6mRgw3dJMOZIrCG4=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/google.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			KZYAxsP5lgvGgLduEjF901DWOgDsv13keDEb2UPphvY=
+			</data>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/google@2x.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			YIMFDG4vd9yXjg4T1wcAtDC7Vreja1pcgKJzOsZgcqY=
+			</data>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/google@3x.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			VqPZ1AQqGKWVpnftZGTeoQXx6Noy4Hw8XIQErzqqh4w=
+			</data>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/he.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			KtB1FmX6YQB2EQfECgjfBJBnQA7X2NP7QuPuxFZ6YLA=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/hi.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			3UHXJzarX0qX0J3bFMSADuQLm+0jadZPDF/6uWpiRh4=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/hr.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			JA+ymYzp46eWqXkG/G+WClYRwHhNxzsWyukU+u0KW/4=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/hu.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			GoRF+Zxo+7BfNxT4D3DtCIpiNxtbmIXjErRRbwfYnk8=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/id.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			PyRv43MvgTyToElSNlECqWWiJIriTlBPGVMTmFiLK/k=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/it.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			TtxpfPqTYA6LaQTYcihANVBXvLLpxiQmqXzstkL2M8g=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/ja.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			hk3OYj6xqZvup+cqHbkAhhDEA8l1hXBMH3gLIIk4ERQ=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/ko.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			AhqCmUXH5He26Jp82dpoP1opwP/AwBLug5uvUO96wBM=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/ms.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			y2wRSAv0XEuZrBwtz9tnpfgqeZkXomMNT7PpYTV7XJM=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/nb.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			AqDORhPvDCPsPxYdWdXEk+neYmyBsEvpMYChGkLK6rA=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/nl.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			SQUYZcAGQO3tTDWbHoIOEdHxkQVdu0gFkfk5fTerXg0=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/pl.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			zB70RS/MmKy+7SKVC9fwoipXngJaj1DHj9u2AO045V0=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/pt.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			h4m5LhoUwf1F8mYZJzxXPRsQnjz0AOVugKWHC6rrzO4=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/pt_BR.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			h4m5LhoUwf1F8mYZJzxXPRsQnjz0AOVugKWHC6rrzO4=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/pt_PT.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			VgBP67jGl9/ChEtJOy0f2pT31xiBxen0V91QtDRgDpk=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/ro.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			r4dFHw1YRkncNtW9F0rb86p6SQ53QicvL33YbiJi490=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/ru.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			HTeXAqlR7PmIQ9lXCSqMSv7j7v6GamABZD47d3Vdxdw=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/sk.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			P/cihlo8LmENm4TLBV2TYyC4PWbK+iTI64GTaNQdXaw=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/sv.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			EB6TqcbOigHnqGM3qiEvaIEEVBHW5FJwF5/vJhhhQx4=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/th.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			87AIPzi3JhCduSGnkEqY3kpQF7l4xbCahIDFRHo8T8c=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/tr.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			DUnrVChJprfGiaclYvcgTKdFHOG+K+qtB0NSDZurgNI=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/uk.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			Jhxu6B2f/rMv7vqp4r9JDKbb+lbniEMqlbSjM+LHru8=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/vi.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			XdgQI6jed2yICWt5Lgc2Nmjlld6tS+jlIZu73Yg5j+A=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/zh_CN.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			UnRDQSf3cJY9kq+HAKK4OMrkkbt2CGQtT/KlF/uB1nc=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/zh_TW.lproj/GoogleSignIn.strings</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			8K9LpcAznoYMsbk4Z5+PTNH5EEAbvqGHz7sjmrE7t+U=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/Info.plist</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			Y6mM/ygka8PSkywuTa+6uoPvT4YhM67NwjeExyYLs3k=
+			</data>
+		</dict>
+		<key>Frameworks/GoogleSignIn.framework/_CodeSignature/CodeResources</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			OxK09uAkq//2p7mgGEv9k1SDMCPDJdJfvI8iPiXHdP4=
 			</data>
 		</dict>
 		<key>Frameworks/GoogleUtilities.framework/GoogleUtilities</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			crl53JuP2UqHG1xVZaQHaNadQByaVXmqCVL2/iVCSuw=
+			m5BHJ+E0x6trZoEkdZ1f768u7mbIfmH90aNWzrHvsqw=
 			</data>
 		</dict>
 		<key>Frameworks/GoogleUtilities.framework/GoogleUtilities_Privacy.bundle/Info.plist</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			P5mOTnrPZelJnIH3u9UtkvC3ZpgXirfh1jqxGvJ5G6w=
+			jtwvnyAAgVuylie2aSrzEVmgIowU5YuSWbtijXLd13s=
 			</data>
 		</dict>
 		<key>Frameworks/GoogleUtilities.framework/GoogleUtilities_Privacy.bundle/PrivacyInfo.xcprivacy</key>
@@ -1423,70 +1897,70 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			LlSOZDPY52zcpyEvN4NPXC4uP0iFh0aMc+eDaaLEXMs=
+			tEE1+zLwily4+4DE5fw3ZQkH8PJ2UWfKPInnoOLcndY=
 			</data>
 		</dict>
 		<key>Frameworks/GoogleUtilities.framework/_CodeSignature/CodeResources</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			NlvzH0k3Q/2NNAM5RpE/wRDmyo/M34ctyLRMyl0eFS4=
+			EEprxbXs+B5vL6zB5t6zx962m7XAtfAd5NOQRr8P8d4=
+			</data>
+		</dict>
+		<key>Frameworks/Promises.framework/Info.plist</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			8nDSjk20OJ924BoCr76ljJkIGuBhIJArSogrHhqx7I0=
+			</data>
+		</dict>
+		<key>Frameworks/Promises.framework/Promises</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			f706ut2mFS3E8A8OeY/S0xTXamJyqHQQHzvvWPEDcoI=
+			</data>
+		</dict>
+		<key>Frameworks/Promises.framework/Promises_Privacy.bundle/Info.plist</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			pu9hUn7mGxoOYxHFndjA1JxBWm5y0B/k05Z6rD8OWSE=
+			</data>
+		</dict>
+		<key>Frameworks/Promises.framework/Promises_Privacy.bundle/PrivacyInfo.xcprivacy</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			dLDNcvwjwe8wLyLuJ1P2GBfNxa8P96fy0GMrUk+4rOo=
+			</data>
+		</dict>
+		<key>Frameworks/Promises.framework/_CodeSignature/CodeResources</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			7YmsT0x0JGa4oFduxTLL5dPFoz7gpFqFRntbkT2gMVE=
 			</data>
 		</dict>
 		<key>Frameworks/RecaptchaInterop.framework/Info.plist</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			aCgYsJ/iL6Xu/TDqwK5WN0At3xkXA433o9I5bWtUIOg=
+			Reyj9/gU1grwmXPlrctBMUkoSDVOhiKP4gp1ApuhZL4=
 			</data>
 		</dict>
 		<key>Frameworks/RecaptchaInterop.framework/RecaptchaInterop</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			64DIPEZjnHA8rpMFLIJK7xL0VsSLCtUIkcmh+g9BIiA=
+			6x9gbcQntv5kBg0DFCoZQqpQVH9fXNOyDWuhW6eDKvk=
 			</data>
 		</dict>
 		<key>Frameworks/RecaptchaInterop.framework/_CodeSignature/CodeResources</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			o7IHAaV8b+G2g6vt5Zyf+TPt8vnZLrYE7ZridX/zq2w=
-			</data>
-		</dict>
-		<key>Frameworks/absl.framework/Info.plist</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			GCIH6YxZKk5RXkYdZ9+eHgSnYKx9bjug08W5G3qQnKg=
-			</data>
-		</dict>
-		<key>Frameworks/absl.framework/_CodeSignature/CodeResources</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			JuChYKclIpOQETBmD+ZIDiivxPyz6QYZduQVFKbj8uA=
-			</data>
-		</dict>
-		<key>Frameworks/absl.framework/absl</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			qOxcnUWJtfCTmkOTXeu82gAhWqQtYSgAbxnXDpnnQwI=
-			</data>
-		</dict>
-		<key>Frameworks/absl.framework/xcprivacy.bundle/Info.plist</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			THnsDuMuo0tpGPciR8kzKAftTp8lOWH467QJ/jVHjSI=
-			</data>
-		</dict>
-		<key>Frameworks/absl.framework/xcprivacy.bundle/PrivacyInfo.xcprivacy</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			jWXQtDoSYs/inoM5bACz25T7Eg1E0RiNknNB8UpsIjw=
+			uiGmcWSozoVyxeoBCeJdsP/wv0CofRlHAJT+MhXkC8A=
 			</data>
 		</dict>
 		<key>Frameworks/app_links.framework/Info.plist</key>
@@ -1524,90 +1998,6 @@
 			3wG/jzEbezUNAdVa/lBZ6tm6KwBpxUIeadm0BffKvqI=
 			</data>
 		</dict>
-		<key>Frameworks/grpc.framework/Info.plist</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			X7Jg7xuBPufVE5s411dl4vUJGRoi+vbQFRsyDXNX5jM=
-			</data>
-		</dict>
-		<key>Frameworks/grpc.framework/_CodeSignature/CodeResources</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			XZIW4z+bXh8Og8JtdPVTv4MoO+gk+BjqYur2NG4TfPU=
-			</data>
-		</dict>
-		<key>Frameworks/grpc.framework/grpc</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			Lem75+p6jM+EpfQmG7kjTQoIjd6QgVVvcOAUA7N6xQs=
-			</data>
-		</dict>
-		<key>Frameworks/grpc.framework/grpc.bundle/Info.plist</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			azdUV46V2lcs+NE4rJ4hRVLw4IL9hBaqD7/NggMOl5o=
-			</data>
-		</dict>
-		<key>Frameworks/grpc.framework/grpc.bundle/PrivacyInfo.xcprivacy</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			A7LHCDOjMaKx79Ef8WjtAqjq39Xn0fvzDuzHUJpK6kc=
-			</data>
-		</dict>
-		<key>Frameworks/grpcpp.framework/Info.plist</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			kMZ1yyq0O/8iM3PpndG9hZxDAYvAI9zSXzDVxMBiNnk=
-			</data>
-		</dict>
-		<key>Frameworks/grpcpp.framework/_CodeSignature/CodeResources</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			xpBkF0Jte/srzini9pzYNNcBH22Ct47G4sj5Vui9XJ8=
-			</data>
-		</dict>
-		<key>Frameworks/grpcpp.framework/gRPCCertificates-Cpp.bundle/Info.plist</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			CQEuTKweQRNgvklgbA2iYnWbUAwHhBYDHd9683Y7YGI=
-			</data>
-		</dict>
-		<key>Frameworks/grpcpp.framework/gRPCCertificates-Cpp.bundle/roots.pem</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			lhQzRMSuEJWIElssQdXa9lSl+vxuI/rDf3uj0p2n53Y=
-			</data>
-		</dict>
-		<key>Frameworks/grpcpp.framework/grpcpp</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			BPV6GFsQhxAaztxEHrpIgouhOQpfWND7PsKFwHXqkqQ=
-			</data>
-		</dict>
-		<key>Frameworks/grpcpp.framework/grpcpp.bundle/Info.plist</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			tNw0O7mtYIuz2Iycgj5iIpDe5KH7o/IeX8eQEt3D9ug=
-			</data>
-		</dict>
-		<key>Frameworks/grpcpp.framework/grpcpp.bundle/PrivacyInfo.xcprivacy</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			A7LHCDOjMaKx79Ef8WjtAqjq39Xn0fvzDuzHUJpK6kc=
-			</data>
-		</dict>
 		<key>Frameworks/image_picker_ios.framework/Info.plist</key>
 		<dict>
 			<key>hash2</key>
@@ -1641,111 +2031,6 @@
 			<key>hash2</key>
 			<data>
 			bS2g2NkwIn1CjB2TY7CtbjoS4sm2jFzilxWKdBL8jDE=
-			</data>
-		</dict>
-		<key>Frameworks/leveldb.framework/Info.plist</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			XEllCJNK5qSvCMaG481cheiPMYxb2PvPT91w9/JsE9A=
-			</data>
-		</dict>
-		<key>Frameworks/leveldb.framework/_CodeSignature/CodeResources</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			f2Tjhns4itMkfU18aHJ3oeDzJkRYEcXBWP0reVF/+9A=
-			</data>
-		</dict>
-		<key>Frameworks/leveldb.framework/leveldb</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			dmGbfbERg6iVTGhb7gUCYfClVrFbHhe3/upEXQsQiZ8=
-			</data>
-		</dict>
-		<key>Frameworks/leveldb.framework/leveldb_Privacy.bundle/Info.plist</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			NhhYAiPlK4VKZQGpN8qytgkCwEULcyijaUTHCrWCEWo=
-			</data>
-		</dict>
-		<key>Frameworks/leveldb.framework/leveldb_Privacy.bundle/PrivacyInfo.xcprivacy</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			CsAKC37/AHnc4lLimrQdcc9YxslP5OROoRDO9cYpcOE=
-			</data>
-		</dict>
-		<key>Frameworks/nanopb.framework/Info.plist</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			MhKUQs63lKKcfAj06M22vJHT1y7yrXjFj8COAzA3SBI=
-			</data>
-		</dict>
-		<key>Frameworks/nanopb.framework/_CodeSignature/CodeResources</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			JbiKhewDCIVTwC8pGMi3bfLqmTipSWprMytm9iCY8Z8=
-			</data>
-		</dict>
-		<key>Frameworks/nanopb.framework/nanopb</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			r7U2uPE9NDThbXS8IiWEJqc57NK+FY0XVmi8465jm6M=
-			</data>
-		</dict>
-		<key>Frameworks/nanopb.framework/nanopb_Privacy.bundle/Info.plist</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			1hX59oHfbqk7hclx46l+1RHJQWluKkshWD+5TbNWcy8=
-			</data>
-		</dict>
-		<key>Frameworks/nanopb.framework/nanopb_Privacy.bundle/PrivacyInfo.xcprivacy</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			cpujy9D0WMeM1h7fFzUO2v4ONMqG4xTsZMjLIszSG1Q=
-			</data>
-		</dict>
-		<key>Frameworks/openssl_grpc.framework/Info.plist</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			BgcHVftbAHn+j/rmVXw1HVikDgRTESXas40P+RvN3Vk=
-			</data>
-		</dict>
-		<key>Frameworks/openssl_grpc.framework/_CodeSignature/CodeResources</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			Kaf2h3HC+GiK1N/z87eT1Epcic3KI8atgcpjLrNltTE=
-			</data>
-		</dict>
-		<key>Frameworks/openssl_grpc.framework/openssl_grpc</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			XsFolfMQFJFLZVTf0/dABN5A404Xi0VAjJdGgWw+ctA=
-			</data>
-		</dict>
-		<key>Frameworks/openssl_grpc.framework/openssl_grpc.bundle/Info.plist</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			nDvjUKMq7IRmVg2bh566gCFxz5GckY9rn2eTyx21WWk=
-			</data>
-		</dict>
-		<key>Frameworks/openssl_grpc.framework/openssl_grpc.bundle/PrivacyInfo.xcprivacy</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			A7LHCDOjMaKx79Ef8WjtAqjq39Xn0fvzDuzHUJpK6kc=
 			</data>
 		</dict>
 		<key>Frameworks/path_provider_foundation.framework/Info.plist</key>
@@ -1864,7 +2149,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			AG5gDlAXXyKbaY+ggdNJe4UCibR6ubXYBmRVxLL4ieE=
+			3Eb6AiqIMu270ukTfMhzYGMVDqExBNHSYaSyCj9risA=
 			</data>
 		</dict>
 		<key>__preview.dylib</key>
@@ -1872,6 +2157,20 @@
 			<key>hash2</key>
 			<data>
 			RRUqrRC9vW0zzTRfx0eDBrAG/++h/LCwdwT/m4/oCrw=
+			</data>
+		</dict>
+		<key>google_sign_in_ios_privacy.bundle/Info.plist</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			Ef+ltJ6JQld2sg0d+cETKHe8AG7d5hVpSFP5cd7qcPM=
+			</data>
+		</dict>
+		<key>google_sign_in_ios_privacy.bundle/PrivacyInfo.xcprivacy</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			bS2g2NkwIn1CjB2TY7CtbjoS4sm2jFzilxWKdBL8jDE=
 			</data>
 		</dict>
 	</dict>

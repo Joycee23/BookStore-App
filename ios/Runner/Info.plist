@@ -46,10 +46,24 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>bookstore</string>
+			</array>
+		</dict>
+	</array>
+
 	<!-- 👇 Thêm phần này vào -->
 	<key>NSCameraUsageDescription</key>
 	<string>Ứng dụng cần sử dụng camera để chụp ảnh đơn hàng trả.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Ứng dụng cần truy cập thư viện ảnh để chọn ảnh đơn hàng trả.</string>
+	<key>FlutterDeepLinkingEnabled</key>
+	<false/>
 </dict>
 </plist>

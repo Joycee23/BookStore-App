@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AuthProvider with ChangeNotifier {
   String _token = "";
@@ -19,12 +20,16 @@ class AuthProvider with ChangeNotifier {
       Supabase.instance.client.auth.onAuthStateChange.listen((data) {
         final AuthChangeEvent event = data.event;
         final Session? session = data.session;
+        print("DEBUG: Supabase AuthState changed event = $event");
+        print("DEBUG: Supabase Session is null = ${session == null}");
 
         if (event == AuthChangeEvent.signedIn && session != null) {
           final user = session.user;
+          print("DEBUG: User is signed in Supabase. User ID: ${user.id}, Email: ${user.email}");
           // Sync with our backend
           syncSupabaseUserToBackend(user.id, user.email ?? '', user.userMetadata?['full_name']);
         } else if (event == AuthChangeEvent.signedOut) {
+          print("DEBUG: User signed out from Supabase");
           logout();
         }
       });
@@ -96,6 +101,16 @@ class AuthProvider with ChangeNotifier {
 
   Future<void> logout() async {
     _token = "";
+    
+    // Đăng xuất khỏi Supabase nếu đang đăng nhập
+    try {
+      if (Supabase.instance.client.auth.currentSession != null) {
+        await Supabase.instance.client.auth.signOut();
+      }
+    } catch (e) {
+      print("Lỗi khi đăng xuất Supabase: $e");
+    }
+
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove('auth_token');
     await prefs.remove('email');
@@ -186,6 +201,7 @@ class AuthProvider with ChangeNotifier {
       await supabase.auth.signInWithOAuth(
         OAuthProvider.google,
         redirectTo: redirectUrl,
+        authScreenLaunchMode: LaunchMode.externalApplication,
       );
       return null;
     } catch (e) {
@@ -208,7 +224,9 @@ class AuthProvider with ChangeNotifier {
   }
 
   Future<void> syncSupabaseUserToBackend(String id, String email, String? fullName) async {
+    print("DEBUG: syncSupabaseUserToBackend starting for $email (ID: $id)");
     try {
+      print("DEBUG: Sending sync request to $_apiUrl/api/users/sync");
       final response = await http.post(
         Uri.parse('$_apiUrl/api/users/sync'),
         headers: {'Content-Type': 'application/json'},
@@ -218,6 +236,8 @@ class AuthProvider with ChangeNotifier {
           'fullName': fullName,
         }),
       );
+      print("DEBUG: Sync response status: ${response.statusCode}");
+      print("DEBUG: Sync response body: ${response.body}");
       
       if (response.statusCode >= 200 && response.statusCode < 300) {
         final data = json.decode(response.body);
@@ -235,10 +255,13 @@ class AuthProvider with ChangeNotifier {
         await prefs.setString('phone_number', _phoneNumber);
         await prefs.setString('address', _address);
         
+        print("DEBUG: Sync successful. App state updated and listeners notified.");
         notifyListeners();
+      } else {
+        print("DEBUG: Sync failed with status: ${response.statusCode}");
       }
     } catch (e) {
-      print("Lỗi đồng bộ user: $e");
+      print("DEBUG: Lỗi đồng bộ user: $e");
     }
   }
 
