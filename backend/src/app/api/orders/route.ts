@@ -27,6 +27,7 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
   try {
     const body = await request.json();
+    console.log("POST /api/orders received body:", body);
     const {
       userId,
       items, // [{ bookId, quantity, price }]
@@ -41,7 +42,7 @@ export async function POST(request: Request) {
     } = body;
 
     if (!userId || !items || items.length === 0) {
-      return NextResponse.json({ error: 'userId và items là bắt buộc' }, { status: 400 });
+      return NextResponse.json({ error: `userId và items là bắt buộc. Received body: ${JSON.stringify(body)}` }, { status: 400 });
     }
 
     // Đảm bảo user tồn tại

@@ -4,7 +4,7 @@ import { prisma } from '@/lib/prisma';
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { name, phone, product, address, reason, imageUrl, userId, orderCode } = body;
+    const { name, phone, product, address, reason, imageUrl, userId, orderId } = body;
 
     const returnRequest = await prisma.returnRequest.create({
       data: {
@@ -15,7 +15,7 @@ export async function POST(request: Request) {
         reason,
         imageUrl,
         userId,
-        orderCode,
+        orderId,
         status: "Chưa xử lý"
       }
     });

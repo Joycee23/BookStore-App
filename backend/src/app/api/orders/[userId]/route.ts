@@ -3,9 +3,10 @@ import { prisma } from '@/lib/prisma';
 
 export async function GET(
   request: Request,
-  { params }: { params: { userId: string } }
+  context: { params: Promise<{ userId: string }> }
 ) {
   try {
+    const params = await context.params;
     const orders = await prisma.order.findMany({
       where: { userId: params.userId },
       include: { items: { include: { book: true } } },

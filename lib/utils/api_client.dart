@@ -9,6 +9,16 @@ class ApiClient {
     return dotenv.env['API_BASE_URL'] ?? 'http://127.0.0.1:3000/api';
   }
 
+  /// Trả về URL proxy thông qua Next.js backend để bypass CORS
+  static String getProxyImageUrl(String originalUrl) {
+    if (!originalUrl.startsWith('http')) return originalUrl; // Local asset
+    if (originalUrl.contains('/api/proxy-image')) return originalUrl; // Already proxied
+    
+    // Nếu baseUrl từ .env không có sẵn /api thì thêm vào
+    final apiPrefix = baseUrl.endsWith('/api') ? '' : '/api';
+    return '$baseUrl$apiPrefix/proxy-image?url=${Uri.encodeComponent(originalUrl)}';
+  }
+
   static Future<dynamic> get(String endpoint) async {
     final response = await http.get(Uri.parse('$baseUrl$endpoint'));
     if (response.statusCode >= 200 && response.statusCode < 300) {

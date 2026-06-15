@@ -9,17 +9,17 @@ import 'providers/cart_provider.dart';
 import 'providers/order_provider.dart';
 import 'providers/discount_provider.dart';
 
-import 'screens/home_screen.dart';
-import 'screens/cart_screen.dart';
-import 'screens/checkout_screen.dart';
-import 'screens/login_screen.dart';
-import 'screens/register_screen.dart';
-import 'screens/user_info_screen.dart';
-import 'screens/edit_profile_screen.dart';
-import 'screens/return_policy_screen.dart';
-import 'screens/return_info_screen.dart';
-import 'screens/order_list_screen.dart';
-import 'screens/wallet_screen.dart';
+import 'screens/home/home_screen.dart';
+import 'screens/order/cart_screen.dart';
+import 'screens/order/checkout_screen.dart';
+import 'screens/auth/login_screen.dart';
+import 'screens/auth/register_screen.dart';
+import 'screens/profile/user_info_screen.dart';
+import 'screens/profile/edit_profile_screen.dart';
+import 'screens/order/return_policy_screen.dart';
+import 'screens/order/return_info_screen.dart';
+import 'screens/order/order_list_screen.dart';
+import 'screens/profile/wallet_screen.dart';
 import 'admin_screen/admin_home_screen.dart';
 import 'admin_screen/return_requests_screen.dart';
 

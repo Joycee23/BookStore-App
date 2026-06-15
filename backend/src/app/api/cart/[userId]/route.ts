@@ -3,9 +3,10 @@ import { prisma } from '@/lib/prisma';
 
 export async function GET(
   request: Request,
-  { params }: { params: { userId: string } }
+  context: { params: Promise<{ userId: string }> }
 ) {
   try {
+    const params = await context.params;
     const cart = await prisma.cart.findUnique({
       where: { userId: params.userId },
       include: { items: { include: { book: true } } }
@@ -18,9 +19,10 @@ export async function GET(
 
 export async function POST(
   request: Request,
-  { params }: { params: { userId: string } }
+  context: { params: Promise<{ userId: string }> }
 ) {
   try {
+    const params = await context.params;
     const { bookId, quantity } = await request.json();
     
     let cart = await prisma.cart.findUnique({ where: { userId: params.userId } });
@@ -55,9 +57,10 @@ export async function POST(
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { userId: string } }
+  context: { params: Promise<{ userId: string }> }
 ) {
   try {
+    const params = await context.params;
     const cart = await prisma.cart.findUnique({ where: { userId: params.userId } });
     if (cart) {
       await prisma.cartItem.deleteMany({ where: { cartId: cart.id } });

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/book_provider.dart';
-import '../screens/book_detail_screen.dart';
+import '../screens/book/book_detail_screen.dart';
 import '../utils/app_theme.dart';
 
 class BookItem extends StatelessWidget {

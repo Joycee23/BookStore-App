@@ -107,8 +107,8 @@ model ReturnRequest {
   status      String   @default("Chưa xử lý") // Chưa xử lý, Đang xử lý, Đã duyệt, Từ chối
   userId      String
   user        User     @relation(fields: [userId], references: [id])
-  orderCode   Int
-  order       Order    @relation(fields: [orderCode], references: [orderCode])
+  orderId     String
+  order       Order    @relation(fields: [orderId], references: [id])
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }

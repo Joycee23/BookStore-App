@@ -3,9 +3,10 @@ import { prisma } from '@/lib/prisma';
 
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
+    const params = await context.params;
     const returnRequest = await prisma.returnRequest.findUnique({
       where: { id: params.id }
     });
@@ -18,19 +19,20 @@ export async function GET(
 
 export async function PUT(
   request: Request,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
+    const params = await context.params;
     const { status } = await request.json();
     const returnRequest = await prisma.returnRequest.update({
       where: { id: params.id },
       data: { status }
     });
 
-    if (status === 'Đã duyệt' && returnRequest.orderCode && returnRequest.userId) {
+    if (status === 'Đã duyệt' && returnRequest.orderId && returnRequest.userId) {
       // Find the order
       const order = await prisma.order.findUnique({
-        where: { orderCode: returnRequest.orderCode },
+        where: { id: returnRequest.orderId },
         include: { items: true }
       });
 

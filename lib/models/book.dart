@@ -1,3 +1,5 @@
+import '../utils/api_client.dart';
+
 class Book {
   final String id;
   final String title;
@@ -49,7 +51,7 @@ class Book {
       id: json['id'] ?? '',
       title: json['title'] ?? '',
       author: json['author'] ?? '',
-      imageUrl: json['imageUrl'] ?? '',
+      imageUrl: ApiClient.getProxyImageUrl(json['imageUrl'] ?? ''),
       price: (json['price'] as num).toDouble(),
       category: json['category'] ?? '',
       description: json['description'] ?? 'Chưa có mô tả.',

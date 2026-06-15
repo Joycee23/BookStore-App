@@ -4,5 +4,5 @@ class User {
   final String password;
   double walletBalance;
 
-  User({required this.id, required this.email, required this.password});
+  User({required this.id, required this.email, required this.password, this.walletBalance = 0.0});
 }

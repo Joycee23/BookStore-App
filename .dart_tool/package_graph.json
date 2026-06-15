@@ -186,7 +186,7 @@
     },
     {
       "name": "test",
-      "version": "1.26.2",
+      "version": "1.31.0",
       "dependencies": [
         "analyzer",
         "async",
@@ -195,7 +195,6 @@
         "coverage",
         "http_multi_server",
         "io",
-        "js",
         "matcher",
         "node_preamble",
         "package_config",
@@ -252,7 +251,7 @@
     },
     {
       "name": "meta",
-      "version": "1.16.0",
+      "version": "1.18.0",
       "dependencies": []
     },
     {
@@ -298,7 +297,7 @@
     },
     {
       "name": "matcher",
-      "version": "0.12.17",
+      "version": "0.12.19",
       "dependencies": [
         "async",
         "meta",
@@ -309,7 +308,7 @@
     },
     {
       "name": "test_api",
-      "version": "0.7.6",
+      "version": "0.7.11",
       "dependencies": [
         "async",
         "boolean_selector",
@@ -639,7 +638,7 @@
     },
     {
       "name": "test_core",
-      "version": "0.6.11",
+      "version": "0.6.17",
       "dependencies": [
         "analyzer",
         "args",
@@ -735,11 +734,6 @@
       "dependencies": []
     },
     {
-      "name": "js",
-      "version": "0.7.2",
-      "dependencies": []
-    },
-    {
       "name": "io",
       "version": "1.0.5",
       "dependencies": [
@@ -757,9 +751,10 @@
     },
     {
       "name": "coverage",
-      "version": "1.11.1",
+      "version": "1.15.1",
       "dependencies": [
         "args",
+        "cli_config",
         "glob",
         "logging",
         "meta",
@@ -767,7 +762,8 @@
         "path",
         "source_maps",
         "stack_trace",
-        "vm_service"
+        "vm_service",
+        "yaml"
       ]
     },
     {
@@ -780,7 +776,7 @@
     },
     {
       "name": "analyzer",
-      "version": "7.3.0",
+      "version": "12.1.0",
       "dependencies": [
         "_fe_analyzer_shared",
         "collection",
@@ -808,14 +804,14 @@
     },
     {
       "name": "material_color_utilities",
-      "version": "0.11.1",
+      "version": "0.13.0",
       "dependencies": [
         "collection"
       ]
     },
     {
       "name": "characters",
-      "version": "1.4.0",
+      "version": "1.4.1",
       "dependencies": []
     },
     {
@@ -1132,6 +1128,14 @@
       ]
     },
     {
+      "name": "cli_config",
+      "version": "0.2.0",
+      "dependencies": [
+        "args",
+        "yaml"
+      ]
+    },
+    {
       "name": "watcher",
       "version": "1.1.1",
       "dependencies": [
@@ -1148,9 +1152,10 @@
     },
     {
       "name": "_fe_analyzer_shared",
-      "version": "80.0.0",
+      "version": "99.0.0",
       "dependencies": [
-        "meta"
+        "meta",
+        "source_span"
       ]
     },
     {
