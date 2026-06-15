@@ -1,5 +1,7 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class CartItem {
   final String id;
@@ -16,15 +18,6 @@ class CartItem {
     required this.imageUrl,
   });
 
-  Map<String, dynamic> toJson() {
-    return {
-      'title': title,
-      'price': price,
-      'quantity': quantity,
-      'imageUrl': imageUrl,
-    };
-  }
-
   factory CartItem.fromJson(Map<String, dynamic> json, String id) {
     return CartItem(
       id: id,
@@ -39,110 +32,95 @@ class CartItem {
 class CartProvider with ChangeNotifier {
   Map<String, CartItem> _items = {};
 
-  Map<String, CartItem> get items {
-    return {..._items};
-  }
+  Map<String, CartItem> get items => {..._items};
+  int get itemCount => _items.length;
+  double get totalPrice => _items.values.fold(0, (sum, item) => sum + (item.price * item.quantity));
 
-  int get itemCount {
-    return _items.length;
-  }
-
-  double get totalPrice {
-    return _items.values.fold(0, (sum, item) => sum + (item.price * item.quantity));
-  }
-
-  void addItem(String productId, String title, double price, String imageUrl) {
-    if (_items.containsKey(productId)) {
-      _items.update(
-        productId,
-        (existingCartItem) => CartItem(
-          id: existingCartItem.id,
-          title: existingCartItem.title,
-          price: existingCartItem.price,
-          quantity: existingCartItem.quantity + 1,
-          imageUrl: existingCartItem.imageUrl,
-        ),
-      );
-    } else {
-      _items.putIfAbsent(
-        productId,
-        () => CartItem(
-          id: DateTime.now().toString(),
-          title: title,
-          price: price,
-          quantity: 1,
-          imageUrl: imageUrl,
-        ),
-      );
-    }
-    notifyListeners();
-  }
-
-  void removeItem(String productId) {
-    _items.remove(productId);
-    notifyListeners();
-  }
+  String get _apiUrl => dotenv.env['API_BASE_URL'] ?? 'http://localhost:3000';
 
   void clearCart() {
     _items = {};
     notifyListeners();
   }
 
-  // 🔥 Firestore: Save Cart
-  Future<void> saveCartToFirestore(String userEmail) async {
-    final cartRef = FirebaseFirestore.instance.collection('carts').doc(userEmail);
-
-    final cartData = _items.map((key, item) => MapEntry(key, item.toJson()));
-
+  Future<void> loadCartFromBackend(String userId) async {
     try {
-      await cartRef.set({'items': cartData});
-      print("Giỏ hàng đã lưu thành công!");
-    } catch (e) {
-      print("Lỗi khi lưu giỏ hàng: $e");
-    }
-  }
-
-  // 🔥 Firestore: Load Cart
-  Future<void> loadCartFromFirestore(String userEmail) async {
-    final cartRef = FirebaseFirestore.instance.collection('carts').doc(userEmail);
-
-    try {
-      final snapshot = await cartRef.get();
-
-      if (snapshot.exists) {
-        final data = snapshot.data() as Map<String, dynamic>;
-        final items = data['items'] as Map<String, dynamic>;
-
-        _items = items.map((key, value) {
-          return MapEntry(
-            key,
-            CartItem.fromJson(value, key),
+      final response = await http.get(Uri.parse('$_apiUrl/api/cart/$userId'));
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        final List itemsList = data['items'] ?? [];
+        _items = {};
+        for (var item in itemsList) {
+          final book = item['book'];
+          _items[book['id']] = CartItem(
+            id: book['id'],
+            title: book['title'],
+            price: (book['price'] ?? 0).toDouble(),
+            quantity: item['quantity'],
+            imageUrl: book['imageUrl'],
           );
-        });
-
+        }
         notifyListeners();
-      } else {
-        print("Không tìm thấy giỏ hàng cho người dùng $userEmail.");
       }
     } catch (e) {
       print("Lỗi khi tải giỏ hàng: $e");
     }
   }
 
-  // ✅ Hàm cập nhật số lượng sản phẩm
-  void updateItemQuantity(String productId, int newQuantity) {
-    if (_items.containsKey(productId)) {
-      _items.update(
-        productId,
-        (existingItem) => CartItem(
-          id: existingItem.id,
-          title: existingItem.title,
-          price: existingItem.price,
-          quantity: newQuantity,
-          imageUrl: existingItem.imageUrl,
-        ),
+  Future<void> addItem(String userId, String bookId, String title, double price, String imageUrl) async {
+    // Optimistic update
+    if (_items.containsKey(bookId)) {
+      _items.update(bookId, (existing) => CartItem(
+        id: existing.id, title: existing.title, price: existing.price,
+        quantity: existing.quantity + 1, imageUrl: existing.imageUrl,
+      ));
+    } else {
+      _items.putIfAbsent(bookId, () => CartItem(
+        id: bookId, title: title, price: price, quantity: 1, imageUrl: imageUrl,
+      ));
+    }
+    notifyListeners();
+
+    // Sync with backend
+    try {
+      await http.post(
+        Uri.parse('$_apiUrl/api/cart/$userId'),
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode({'bookId': bookId, 'quantity': _items[bookId]!.quantity}),
       );
+    } catch (e) {
+      print("Lỗi khi thêm vào giỏ: $e");
+    }
+  }
+
+  Future<void> removeItem(String userId, String bookId) async {
+    _items.remove(bookId);
+    notifyListeners();
+
+    try {
+      await http.delete(Uri.parse('$_apiUrl/api/cart/$userId/item/$bookId'));
+    } catch (e) {
+      print("Lỗi khi xóa khỏi giỏ: $e");
+    }
+  }
+
+  Future<void> updateItemQuantity(String userId, String bookId, int newQuantity) async {
+    if (_items.containsKey(bookId)) {
+      _items.update(bookId, (existing) => CartItem(
+        id: existing.id, title: existing.title, price: existing.price,
+        quantity: newQuantity, imageUrl: existing.imageUrl,
+      ));
       notifyListeners();
+
+      try {
+        await http.post(
+          Uri.parse('$_apiUrl/api/cart/$userId'),
+          headers: {'Content-Type': 'application/json'},
+          body: json.encode({'bookId': bookId, 'quantity': newQuantity}),
+        );
+      } catch (e) {
+        print("Lỗi khi cập nhật số lượng: $e");
+      }
     }
   }
 }

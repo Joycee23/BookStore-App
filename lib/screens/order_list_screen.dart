@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
+import '../utils/app_theme.dart';
+import '../providers/auth_provider.dart';
+import '../utils/api_client.dart';
 
 class OrderListScreen extends StatefulWidget {
   @override
@@ -11,6 +13,7 @@ class OrderListScreen extends StatefulWidget {
 class _OrderListScreenState extends State<OrderListScreen> {
   bool _isLoading = true;
   List<Map<String, dynamic>> _orders = [];
+  final currencyFormat = NumberFormat.currency(locale: 'vi_VN', symbol: '₫');
 
   @override
   void initState() {
@@ -20,176 +23,139 @@ class _OrderListScreenState extends State<OrderListScreen> {
 
   Future<void> _fetchOrders() async {
     try {
-      final user = FirebaseAuth.instance.currentUser;
-      if (user == null) {
-        setState(() => _isLoading = false);
-        return;
-      }
+      final authProvider = Provider.of<AuthProvider>(context, listen: false);
+      final userId = authProvider.userId;
+      if (userId == null) return;
 
-      final email = user.email;
-
-      final snapshot = await FirebaseFirestore.instance
-          .collection('orders')
-          .where('email', isEqualTo: email)
-          .orderBy('timestamp', descending: true)
-          .get();
-
-      final List<Map<String, dynamic>> loadedOrders = [];
-
-      for (var doc in snapshot.docs) {
-        final data = doc.data();
-        loadedOrders.add({
-          'id': doc.id,
-          'totalAmount': data['totalAmount'],
-          'timestamp': data['timestamp'].toDate(),
-          'items': List<Map<String, dynamic>>.from(data['items']),
-          'address': data['address'],
-          'fullName': data['fullName'],
-          'phoneNumber': data['phoneNumber'],
-          'paymentMethod': data['paymentMethod'],
-        });
-      }
+      final List<dynamic> fetchedOrders = await ApiClient.get('/orders?userId=$userId');
 
       setState(() {
-        _orders = loadedOrders;
+        _orders = fetchedOrders.map((e) => e as Map<String, dynamic>).toList();
         _isLoading = false;
       });
     } catch (e) {
-      print("Error fetching orders: $e");
       setState(() => _isLoading = false);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final currencyFormat = NumberFormat.currency(locale: 'vi_VN', symbol: '₫');
-
     return Scaffold(
-      appBar: AppBar(title: Text('Đơn hàng của tôi')),
+      appBar: AppBar(title: const Text('Lịch sử đơn hàng')),
       body: _isLoading
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator(color: AppTheme.primary))
           : _orders.isEmpty
-              ? Center(child: Text('Chưa có đơn hàng nào'))
+              ? Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 100, height: 100,
+                        decoration: BoxDecoration(color: AppTheme.bgCardLight, borderRadius: BorderRadius.circular(30)),
+                        child: const Icon(Icons.receipt_long_rounded, size: 48, color: AppTheme.textMuted),
+                      ),
+                      const SizedBox(height: 20),
+                      const Text("Chưa có đơn hàng nào", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: AppTheme.textPrimary)),
+                    ],
+                  ),
+                )
               : ListView.builder(
+                  padding: const EdgeInsets.all(16),
                   itemCount: _orders.length,
                   itemBuilder: (ctx, i) {
                     final order = _orders[i];
-                    final createdAt = order['timestamp'];
+                    final createdAt = DateTime.parse(order['createdAt'].toString());
                     final items = order['items'] as List;
 
-                    return Card(
-                      margin: EdgeInsets.all(12),
-                      elevation: 5,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
+                    return Container(
+                      margin: const EdgeInsets.only(bottom: 16),
+                      padding: const EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        color: AppTheme.bgCard,
+                        borderRadius: AppTheme.radiusLg,
+                        border: Border.all(color: Colors.white.withOpacity(0.05)),
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Mã đơn: ${order['id']}",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 16),
-                            ),
-                            SizedBox(height: 8),
-                            Row(
-                              children: [
-                                Icon(Icons.calendar_today,
-                                    size: 16, color: Colors.grey[600]),
-                                SizedBox(width: 6),
-                                Text(
-                                  "Ngày đặt: ${DateFormat('dd/MM/yyyy – HH:mm').format(createdAt)}",
-                                  style: TextStyle(fontSize: 14),
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: 12),
-                            Divider(),
-                            Text(
-                              "Sản phẩm:",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 15),
-                            ),
-                            SizedBox(height: 6),
-                            ...items.map<Widget>((item) {
-                              return ListTile(
-                                leading: ClipRRect(
-                                  borderRadius: BorderRadius.circular(8),
-                                  child: Image.network(
-                                    item['imageUrl'] ?? '',
-                                    width: 50,
-                                    height: 50,
-                                    fit: BoxFit.cover,
-                                    errorBuilder: (ctx, err, stack) =>
-                                        Icon(Icons.image_not_supported),
-                                  ),
-                                ),
-                                title: Text(item['title'] ?? ''),
-                                subtitle: Text(
-                                  "Số lượng: ${item['quantity']} | Giá: ${currencyFormat.format(item['price'])}",
-                                ),
-                              );
-                            }).toList(),
-                            SizedBox(height: 12),
-                            Divider(),
-                            Text(
-                              "Thông tin người nhận:",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 15),
-                            ),
-                            SizedBox(height: 8),
-                            Row(
-                              children: [
-                                Icon(Icons.person,
-                                    size: 18, color: Colors.grey[700]),
-                                SizedBox(width: 8),
-                                Text(order['fullName']),
-                              ],
-                            ),
-                            SizedBox(height: 6),
-                            Row(
-                              children: [
-                                Icon(Icons.phone,
-                                    size: 18, color: Colors.grey[700]),
-                                SizedBox(width: 8),
-                                Text(order['phoneNumber']),
-                              ],
-                            ),
-                            SizedBox(height: 6),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Icon(Icons.location_on,
-                                    size: 18, color: Colors.grey[700]),
-                                SizedBox(width: 8),
-                                Expanded(child: Text(order['address'])),
-                              ],
-                            ),
-                            SizedBox(height: 6),
-                            Row(
-                              children: [
-                                Icon(Icons.payment,
-                                    size: 18, color: Colors.grey[700]),
-                                SizedBox(width: 8),
-                                Text("Thanh toán: ${order['paymentMethod']}"),
-                              ],
-                            ),
-                            SizedBox(height: 12),
-                            Align(
-                              alignment: Alignment.centerRight,
-                              child: Text(
-                                "Tổng tiền: ${currencyFormat.format(order['totalAmount'])}",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.green[700],
-                                ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("Đơn hàng", style: TextStyle(color: AppTheme.textSecondary, fontSize: 13, fontWeight: FontWeight.w600)),
+                              Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                                decoration: BoxDecoration(color: Colors.greenAccent.withOpacity(0.15), borderRadius: BorderRadius.circular(12)),
+                                child: Text(order['status'] == 'PAID' ? "Đã thanh toán" : "Đang xử lý", style: const TextStyle(color: Colors.greenAccent, fontSize: 12, fontWeight: FontWeight.w600)),
                               ),
+                            ],
+                          ),
+                          const SizedBox(height: 4),
+                          Text("#${order['orderCode'] ?? order['id'].toString().substring(0,8)}", style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 16, color: AppTheme.textPrimary)),
+                          const SizedBox(height: 16),
+                          const Divider(color: Colors.white10),
+                          const SizedBox(height: 16),
+                          ...items.map((orderItem) {
+                            final item = orderItem['book'];
+                            return Padding(
+                              padding: const EdgeInsets.only(bottom: 12),
+                              child: Row(
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(8),
+                                    child: item['imageUrl'] != '' 
+                                        ? Image.network(item['imageUrl'], width: 50, height: 70, fit: BoxFit.cover, errorBuilder: (_,__,___)=>const Icon(Icons.book, color: AppTheme.textMuted))
+                                        : Container(width: 50, height: 70, color: AppTheme.bgCardLight, child: const Icon(Icons.book, color: AppTheme.textMuted)),
+                                  ),
+                                  const SizedBox(width: 16),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(item['title'] ?? '', style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 15, color: AppTheme.textPrimary), maxLines: 2, overflow: TextOverflow.ellipsis),
+                                        const SizedBox(height: 4),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text("SL: ${orderItem['quantity']}", style: const TextStyle(color: AppTheme.textSecondary, fontSize: 13)),
+                                            Text(currencyFormat.format(orderItem['price']), style: const TextStyle(color: AppTheme.primary, fontWeight: FontWeight.w700, fontSize: 14)),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          }).toList(),
+                          const Divider(color: Colors.white10, height: 24),
+                          Row(
+                            children: [
+                              const Icon(Icons.calendar_today_rounded, size: 16, color: AppTheme.textMuted),
+                              const SizedBox(width: 8),
+                              Text(DateFormat('dd/MM/yyyy • HH:mm').format(createdAt), style: const TextStyle(color: AppTheme.textSecondary, fontSize: 13)),
+                            ],
+                          ),
+                          const SizedBox(height: 8),
+                          Row(
+                            children: [
+                              const Icon(Icons.payment_rounded, size: 16, color: AppTheme.textMuted),
+                              const SizedBox(width: 8),
+                              Text(order['paymentMethod'] ?? "Tiền mặt", style: const TextStyle(color: AppTheme.textSecondary, fontSize: 13)),
+                            ],
+                          ),
+                          const SizedBox(height: 16),
+                          Container(
+                            padding: const EdgeInsets.all(12),
+                            decoration: BoxDecoration(color: AppTheme.bgCardLight, borderRadius: BorderRadius.circular(12)),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text("Tổng thanh toán:", style: TextStyle(color: AppTheme.textPrimary, fontWeight: FontWeight.w600)),
+                                Text(currencyFormat.format(order['totalAmount']), style: const TextStyle(color: AppTheme.primary, fontSize: 18, fontWeight: FontWeight.w800)),
+                              ],
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     );
                   },

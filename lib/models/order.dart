@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 class MyOrder {
   final String id;
   final String userId;
@@ -31,7 +29,7 @@ class MyOrder {
       totalAmount: (data['totalAmount'] ?? 0).toDouble(),
       originalAmount: (data['originalAmount'] ?? 0).toDouble(),
       usedDiscount: data['usedDiscount'] ?? false,
-      createdAt: (data['createdAt'] as Timestamp).toDate(),
+      createdAt: data['createdAt'] != null ? DateTime.parse(data['createdAt'].toString()) : DateTime.now(),
       isReturned: data['isReturned'] ?? false,
       status: data['status'] ?? 'pending',
     );
@@ -44,7 +42,7 @@ class MyOrder {
       'totalAmount': totalAmount,
       'originalAmount': originalAmount,
       'usedDiscount': usedDiscount,
-      'createdAt': Timestamp.fromDate(createdAt),
+      'createdAt': createdAt.toIso8601String(),
       'isReturned': isReturned,
       'status': status,
     };

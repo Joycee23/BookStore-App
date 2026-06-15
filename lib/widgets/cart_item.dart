@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/cart_provider.dart';
-import '../models/cart.dart';
+import '../providers/auth_provider.dart';
 
 class CartItemWidget extends StatelessWidget {
   final CartItem item;
 
-  const CartItemWidget({required this.item, Key? key}) : super(key: key);
+  const CartItemWidget({required this.item, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,10 +24,13 @@ class CartItemWidget extends StatelessWidget {
       trailing: IconButton(
         icon: const Icon(Icons.remove_shopping_cart),
         onPressed: () {
-          Provider.of<CartProvider>(context, listen: false).removeFromCart(item.id);
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('${item.title} đã bị xoá khỏi giỏ hàng!')),
-          );
+          final authProvider = Provider.of<AuthProvider>(context, listen: false);
+          if (authProvider.userId != null) {
+            Provider.of<CartProvider>(context, listen: false).removeItem(authProvider.userId!, item.id);
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('${item.title} đã bị xoá khỏi giỏ hàng!')),
+            );
+          }
         },
       ),
     );

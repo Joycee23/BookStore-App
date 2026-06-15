@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
+import 'utils/app_theme.dart';
 import 'providers/auth_provider.dart';
 import 'providers/book_provider.dart';
 import 'providers/cart_provider.dart';
@@ -24,7 +25,10 @@ import 'admin_screen/return_requests_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+
+  await dotenv.load(fileName: ".env");
+
+
 
   final authProvider = AuthProvider();
   await authProvider.loadToken();
@@ -51,11 +55,9 @@ class MyApp extends StatelessWidget {
     final authProvider = Provider.of<AuthProvider>(context);
 
     return MaterialApp(
-      title: 'Book Store App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        fontFamily: 'NotoSans',
-      ),
+      debugShowCheckedModeBanner: false,
+      title: 'Book Store',
+      theme: AppTheme.darkTheme,
       home: _getInitialScreen(authProvider),
       routes: {
         '/home': (context) => HomeScreen(),

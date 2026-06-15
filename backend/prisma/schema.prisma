@@ -1,0 +1,114 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id // Sẽ lưu uid của Supabase Auth
+  email         String    @unique
+  fullName      String?
+  phoneNumber   String?
+  address       String?
+  password      String    @default("")
+  walletBalance Float     @default(0.0)
+  discountCodes DiscountCode[]
+  orders        Order[]
+  cart          Cart?
+  returnRequests ReturnRequest[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model DiscountCode {
+  id          String   @id @default(uuid())
+  code        String   @unique
+  amount      Float
+  isUsed      Boolean  @default(false)
+  expiryDate  DateTime
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+}
+
+model Book {
+  id              String   @id @default(uuid())
+  title           String
+  author          String
+  imageUrl        String
+  price           Float
+  category        String
+  description     String   @default("Chưa có mô tả.")
+  discountPercent Float?
+  discountEndDate DateTime?
+  sold            Int      @default(0)
+  isVisible       Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  orderItems      OrderItem[]
+  cartItems       CartItem[]
+}
+
+model Order {
+  id             String      @id @default(uuid())
+  userId         String
+  user           User        @relation(fields: [userId], references: [id])
+  totalAmount    Float
+  originalAmount Float
+  usedDiscount   Boolean     @default(false)
+  isReturned     Boolean     @default(false)
+  status         String      @default("PENDING") // PENDING, PAID, CANCELLED, SHIPPING, DELIVERED
+  orderCode      Int?        @unique // Sử dụng cho mã đơn hàng của PayOS (kiểu Int)
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+  items          OrderItem[]
+  returnRequests ReturnRequest[]
+}
+
+model Cart {
+  id        String     @id @default(uuid())
+  userId    String     @unique
+  user      User       @relation(fields: [userId], references: [id])
+  items     CartItem[]
+  updatedAt DateTime   @updatedAt
+}
+
+model CartItem {
+  id        String   @id @default(uuid())
+  cartId    String
+  cart      Cart     @relation(fields: [cartId], references: [id])
+  bookId    String
+  book      Book     @relation(fields: [bookId], references: [id])
+  quantity  Int      @default(1)
+  
+  @@unique([cartId, bookId])
+}
+
+model OrderItem {
+  id        String @id @default(uuid())
+  orderId   String
+  order     Order  @relation(fields: [orderId], references: [id])
+  bookId    String
+  book      Book   @relation(fields: [bookId], references: [id], onDelete: Restrict)
+  quantity  Int
+  price     Float  // Giá mua lúc tạo đơn
+}
+
+model ReturnRequest {
+  id          String   @id @default(uuid())
+  name        String
+  phone       String
+  product     String
+  address     String
+  reason      String
+  imageUrl    String?
+  status      String   @default("Chưa xử lý") // Chưa xử lý, Đang xử lý, Đã duyệt, Từ chối
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  orderCode   Int
+  order       Order    @relation(fields: [orderCode], references: [orderCode])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

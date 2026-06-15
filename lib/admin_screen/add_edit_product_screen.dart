@@ -1,7 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart'; // Thêm dòng này
-
+import '../utils/app_theme.dart';
+import '../utils/api_client.dart';
 class AddEditProductScreen extends StatefulWidget {
   final String? productId;
   final Map<String, dynamic>? productData;
@@ -20,58 +19,56 @@ class _AddEditProductScreenState extends State<AddEditProductScreen> {
   final _descriptionController = TextEditingController();
   final _authorController = TextEditingController();
   final _categoryController = TextEditingController();
-
-  bool _isBestseller = false;
+  bool _isSaving = false;
 
   @override
   void initState() {
     super.initState();
     if (widget.productData != null) {
       _titleController.text = widget.productData!['title'] ?? '';
-      final price = widget.productData!['price'];
-      _priceController.text = price != null ? price.toString() : '';
+      _priceController.text = widget.productData!['price']?.toString() ?? '';
       _imageUrlController.text = widget.productData!['imageUrl'] ?? '';
       _descriptionController.text = widget.productData!['description'] ?? '';
       _authorController.text = widget.productData!['author'] ?? '';
       _categoryController.text = widget.productData!['category'] ?? '';
-      _isBestseller = widget.productData!['isBestseller'] ?? false;
     }
   }
 
   void _saveProduct() async {
-    if (_formKey.currentState!.validate()) {
-      try {
-        final price = double.tryParse(_priceController.text.replaceAll('.', '').replaceAll(',', ''));
+    if (!_formKey.currentState!.validate()) return;
+    setState(() => _isSaving = true);
+    try {
+      final price = double.tryParse(_priceController.text.replaceAll('.', '').replaceAll(',', '')) ?? 0;
+      final product = {
+        'title': _titleController.text.trim(),
+        'price': price,
+        'imageUrl': _imageUrlController.text.trim(),
+        'description': _descriptionController.text.trim(),
+        'author': _authorController.text.trim(),
+        'category': _categoryController.text.trim(),
+      };
 
-        final product = {
-          'title': _titleController.text,
-          'price': price ?? 0,
-          'imageUrl': _imageUrlController.text,
-          'description': _descriptionController.text,
-          'author': _authorController.text,
-          'category': _categoryController.text,
-          'isBestseller': _isBestseller,
-        };
-
-        final collection = FirebaseFirestore.instance.collection('books');
-
-        if (widget.productId != null) {
-          await collection.doc(widget.productId).update(product);
-        } else {
-          await collection.add(product);
-        }
-
-        if (context.mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(widget.productId != null ? 'Cập nhật thành công' : 'Thêm mới thành công')),
-          );
-          Navigator.pop(context);
-        }
-      } catch (e) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Lỗi: $e')),
-        );
+      if (widget.productId != null) {
+        await ApiClient.put('/books/${widget.productId}', product);
+      } else {
+        await ApiClient.post('/books', product);
       }
+
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(widget.productId != null ? 'Cập nhật thành công!' : 'Thêm sách thành công!'),
+            backgroundColor: AppTheme.bgCardLight,
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          ),
+        );
+        Navigator.pop(context);
+      }
+    } catch (e) {
+      if (context.mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Lỗi: $e')));
+    } finally {
+      if (mounted) setState(() => _isSaving = false);
     }
   }
 
@@ -86,102 +83,146 @@ class _AddEditProductScreenState extends State<AddEditProductScreen> {
     super.dispose();
   }
 
-  String formatCurrency(double value) {
-    final format = NumberFormat.currency(locale: 'vi_VN', symbol: '₫');
-    return format.format(value);
-  }
-
   @override
   Widget build(BuildContext context) {
     final isEditing = widget.productId != null;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(isEditing ? 'Sửa sản phẩm' : 'Thêm sản phẩm'),
-        backgroundColor: Colors.blueAccent,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
+      appBar: AppBar(title: Text(isEditing ? 'Sửa sản phẩm' : 'Thêm sách mới')),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(20),
         child: Form(
           key: _formKey,
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                _buildTextField(
-                  controller: _titleController,
-                  label: 'Tên sản phẩm',
-                  validator: _requiredValidator,
-                ),
-                _buildTextField(
-                  controller: _authorController,
-                  label: 'Tác giả',
-                  validator: _requiredValidator,
-                ),
-                _buildTextField(
-                  controller: _categoryController,
-                  label: 'Thể loại',
-                  validator: _requiredValidator,
-                ),
-                _buildTextField(
-                  controller: _priceController,
-                  label: 'Giá (VND)',
-                  keyboardType: TextInputType.number,
-                  validator: _priceValidator,
-                ),
-                _buildTextField(
-                  controller: _imageUrlController,
-                  label: 'URL ảnh',
-                  validator: _requiredValidator,
-                ),
-                _buildTextField(
-                  controller: _descriptionController,
-                  label: 'Mô tả',
-                  maxLines: 3,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Book cover preview
+              if (_imageUrlController.text.isNotEmpty)
+                Center(
+                  child: Container(
+                    margin: const EdgeInsets.only(bottom: 24),
+                    height: 180,
+                    width: 120,
+                    decoration: BoxDecoration(
+                      borderRadius: AppTheme.radiusMd,
+                      boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.4), blurRadius: 20, offset: const Offset(8, 12))],
+                    ),
+                    child: ClipRRect(
+                      borderRadius: AppTheme.radiusMd,
+                      child: Image.network(_imageUrlController.text, fit: BoxFit.cover,
+                          errorBuilder: (_, __, ___) => Container(color: AppTheme.bgCardLight, child: const Icon(Icons.book, color: AppTheme.textMuted, size: 40))),
+                    ),
+                  ),
                 ),
 
-                const SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: _saveProduct,
-                  child: Text(isEditing ? 'Cập nhật' : 'Thêm mới'),
+              _buildLabel("Tên sách"),
+              _buildTextField(_titleController, "Vd: Đắc Nhân Tâm", Icons.title_rounded),
+              const SizedBox(height: 20),
+              _buildLabel("Tác giả"),
+              _buildTextField(_authorController, "Vd: Dale Carnegie", Icons.person_rounded),
+              const SizedBox(height: 20),
+              _buildLabel("Thể loại"),
+              _buildTextField(_categoryController, "Vd: Kỹ năng sống", Icons.category_rounded),
+              const SizedBox(height: 20),
+              _buildLabel("Giá (₫)"),
+              _buildTextField(_priceController, "Vd: 95000", Icons.attach_money_rounded, type: TextInputType.number,
+                validator: (v) {
+                  if (v == null || v.isEmpty) return 'Không được để trống';
+                  if (double.tryParse(v.replaceAll('.', '').replaceAll(',', '')) == null) return 'Giá không hợp lệ';
+                  return null;
+                },
+              ),
+              const SizedBox(height: 20),
+              _buildLabel("URL ảnh bìa"),
+              _buildTextField(
+                _imageUrlController, "https://...", Icons.image_rounded,
+                onChanged: (_) => setState(() {}),
+              ),
+              const SizedBox(height: 20),
+              _buildLabel("Mô tả"),
+              Container(
+                decoration: BoxDecoration(
+                  color: AppTheme.bgCardLight,
+                  borderRadius: AppTheme.radiusMd,
+                  border: Border.all(color: Colors.white.withOpacity(0.06)),
                 ),
-              ],
-            ),
+                child: TextFormField(
+                  controller: _descriptionController,
+                  maxLines: 5,
+                  style: const TextStyle(color: AppTheme.textPrimary, fontSize: 15),
+                  decoration: const InputDecoration(
+                    hintText: "Nhập mô tả sách...",
+                    border: InputBorder.none,
+                    contentPadding: EdgeInsets.all(20),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 16, top: 16, right: 12),
+                      child: Icon(Icons.description_rounded, color: AppTheme.textMuted, size: 22),
+                    ),
+                    prefixIconConstraints: BoxConstraints(),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 40),
+              SizedBox(
+                width: double.infinity,
+                height: 56,
+                child: Container(
+                  decoration: BoxDecoration(
+                    gradient: AppTheme.primaryGradient,
+                    borderRadius: AppTheme.radiusMd,
+                    boxShadow: AppTheme.glowShadow(AppTheme.primary),
+                  ),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(backgroundColor: Colors.transparent, shadowColor: Colors.transparent, shape: RoundedRectangleBorder(borderRadius: AppTheme.radiusMd)),
+                    onPressed: _isSaving ? null : _saveProduct,
+                    child: _isSaving
+                        ? const CircularProgressIndicator(color: Colors.white)
+                        : Text(isEditing ? 'Lưu thay đổi' : 'Thêm sách', style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w700, color: Colors.white)),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 40),
+            ],
           ),
         ),
       ),
     );
   }
 
-  Widget _buildTextField({
-    required TextEditingController controller,
-    required String label,
-    int maxLines = 1,
-    TextInputType? keyboardType,
-    String? Function(String?)? validator,
-  }) {
+  Widget _buildLabel(String text) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 12),
-      child: TextFormField(
-        controller: controller,
-        decoration: InputDecoration(
-          labelText: label,
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        ),
-        maxLines: maxLines,
-        keyboardType: keyboardType,
-        validator: validator,
-      ),
+      padding: const EdgeInsets.only(bottom: 10),
+      child: Text(text, style: const TextStyle(color: AppTheme.textSecondary, fontSize: 14, fontWeight: FontWeight.w600)),
     );
   }
 
-  String? _requiredValidator(String? value) {
-    return (value == null || value.isEmpty) ? 'Không được để trống' : null;
-  }
-
-  String? _priceValidator(String? value) {
-    if (value == null || value.isEmpty) return 'Không được để trống';
-    if (double.tryParse(value.replaceAll('.', '').replaceAll(',', '')) == null) return 'Giá trị không hợp lệ';
-    return null;
+  Widget _buildTextField(
+    TextEditingController controller,
+    String hint,
+    IconData icon, {
+    TextInputType type = TextInputType.text,
+    String? Function(String?)? validator,
+    void Function(String)? onChanged,
+  }) {
+    return Container(
+      decoration: BoxDecoration(
+        color: AppTheme.bgCardLight,
+        borderRadius: AppTheme.radiusMd,
+        border: Border.all(color: Colors.white.withOpacity(0.06)),
+      ),
+      child: TextFormField(
+        controller: controller,
+        keyboardType: type,
+        style: const TextStyle(color: AppTheme.textPrimary, fontSize: 15),
+        onChanged: onChanged,
+        validator: validator ?? (v) => (v == null || v.isEmpty) ? 'Không được để trống' : null,
+        decoration: InputDecoration(
+          hintText: hint,
+          border: InputBorder.none,
+          contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+          prefixIcon: Icon(icon, color: AppTheme.textMuted, size: 22),
+        ),
+      ),
+    );
   }
 }

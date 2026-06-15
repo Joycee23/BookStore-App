@@ -1,130 +1,149 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../providers/auth_provider.dart';
+import '../utils/app_theme.dart';
 
 class WalletScreen extends StatelessWidget {
   final String userId;
-
   const WalletScreen({Key? key, required this.userId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context);
+    final double balance = authProvider.walletBalance;
+
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Ví của tôi"),
-        centerTitle: true,
-        backgroundColor: Colors.teal,
-      ),
-      body: StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance
-            .collection('wallets')
-            .where('userId', isEqualTo: userId)
-            .limit(1)
-            .snapshots(),
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return const Center(child: Text("Lỗi tải dữ liệu ví"));
-          }
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          }
-
-          final docs = snapshot.data?.docs ?? [];
-
-          if (docs.isEmpty) {
-            return const Center(child: Text("Không tìm thấy ví cho người dùng này."));
-          }
-
-          final doc = docs.first;
-          final data = doc.data() as Map<String, dynamic>?;
-
-          if (data == null) {
-            return const Center(child: Text("Dữ liệu ví không hợp lệ."));
-          }
-
-          double balance = 0;
-          try {
-            balance = (data['balance'] ?? 0).toDouble();
-          } catch (e) {
-            print("Lỗi chuyển đổi số dư ví: $e");
-          }
-
-          return Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              children: [
-                Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  elevation: 8,
-                  child: Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [Colors.teal.shade400, Colors.teal.shade700],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
+      appBar: AppBar(title: const Text("Ví của tôi")),
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          children: [
+            const SizedBox(height: 20),
+            // === Wallet Card with 3D effect ===
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(28),
+              decoration: BoxDecoration(
+                gradient: AppTheme.walletGradient,
+                borderRadius: AppTheme.radiusLg,
+                boxShadow: [
+                  BoxShadow(color: const Color(0xFF667EEA).withOpacity(0.4), blurRadius: 30, offset: const Offset(0, 15)),
+                  BoxShadow(color: const Color(0xFF764BA2).withOpacity(0.2), blurRadius: 40, spreadRadius: 4),
+                ],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        width: 48, height: 48,
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.15),
+                          borderRadius: BorderRadius.circular(14),
+                        ),
+                        child: const Icon(Icons.account_balance_wallet_rounded, color: Colors.white, size: 26),
                       ),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 32,
-                      horizontal: 24,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Icon(
-                          Icons.account_balance_wallet_outlined,
-                          color: Colors.white,
-                          size: 36,
+                      const Spacer(),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.15),
+                          borderRadius: BorderRadius.circular(20),
                         ),
-                        const SizedBox(height: 16),
-                        const Text(
-                          "Số dư hiện tại",
-                          style: TextStyle(
-                            color: Colors.white70,
-                            fontSize: 18,
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          "${balance.toStringAsFixed(0)} VNĐ",
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 32,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
+                        child: const Text("VNĐ", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 13)),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 28),
+                  const Text("Số dư hiện tại", style: TextStyle(color: Colors.white60, fontSize: 15)),
+                  const SizedBox(height: 8),
+                  Text(
+                    "${balance.toStringAsFixed(0)} ₫",
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 38,
+                      fontWeight: FontWeight.w800,
+                      letterSpacing: -1,
                     ),
                   ),
-                ),
-                const SizedBox(height: 40),
-                ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 12, horizontal: 24),
-                    backgroundColor: Colors.teal,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
+                  const SizedBox(height: 16),
+                  // Decorative line
+                  Container(
+                    width: 60, height: 4,
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.3),
+                      borderRadius: BorderRadius.circular(2),
                     ),
                   ),
-                  onPressed: () {
+                ],
+              ),
+            ),
+            const SizedBox(height: 40),
+            // Actions
+            Row(
+              children: [
+                _buildActionButton(
+                  icon: Icons.add_rounded,
+                  label: "Nạp tiền",
+                  gradient: AppTheme.accentGradient,
+                  onTap: () {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text("Tính năng nạp tiền đang phát triển.")),
+                      SnackBar(
+                        content: const Text("Tính năng nạp tiền đang phát triển"),
+                        behavior: SnackBarBehavior.floating,
+                        backgroundColor: AppTheme.bgCardLight,
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                      ),
                     );
                   },
-                  icon: const Icon(Icons.add_circle_outline),
-                  label: const Text(
-                    "Nạp tiền",
-                    style: TextStyle(fontSize: 16),
-                  ),
+                ),
+                const SizedBox(width: 12),
+                _buildActionButton(
+                  icon: Icons.history_rounded,
+                  label: "Lịch sử",
+                  gradient: const LinearGradient(colors: [Color(0xFF11998E), Color(0xFF38EF7D)]),
+                  onTap: () {},
                 ),
               ],
             ),
-          );
-        },
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildActionButton({
+    required IconData icon,
+    required String label,
+    required LinearGradient gradient,
+    required VoidCallback onTap,
+  }) {
+    return Expanded(
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 18),
+          decoration: BoxDecoration(
+            color: AppTheme.bgCard,
+            borderRadius: AppTheme.radiusMd,
+            border: Border.all(color: Colors.white.withOpacity(0.05)),
+          ),
+          child: Column(
+            children: [
+              Container(
+                width: 48, height: 48,
+                decoration: BoxDecoration(
+                  gradient: gradient,
+                  borderRadius: BorderRadius.circular(14),
+                ),
+                child: Icon(icon, color: Colors.white, size: 24),
+              ),
+              const SizedBox(height: 10),
+              Text(label, style: const TextStyle(color: AppTheme.textPrimary, fontWeight: FontWeight.w600, fontSize: 14)),
+            ],
+          ),
+        ),
       ),
     );
   }

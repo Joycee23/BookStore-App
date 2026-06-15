@@ -1,51 +1,27 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import '../models/order.dart' as model; // đặt biệt danh để tránh trùng tên
-import '../utils/order_utils.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import '../models/order.dart' as model;
 
 class OrderProvider with ChangeNotifier {
   List<model.MyOrder> _orders = [];
   List<model.MyOrder> get orders => _orders;
 
+  String get _apiUrl => dotenv.env['API_BASE_URL'] ?? 'http://localhost:3000';
+
   Future<void> fetchOrders(String userId) async {
-    final snapshot = await FirebaseFirestore.instance
-        .collection('orders')
-        .where('userId', isEqualTo: userId)
-        .orderBy('createdAt', descending: true)
-        .get();
-
-    _orders = snapshot.docs
-        .map((doc) => model.MyOrder.fromMap(doc.id, doc.data()))
-        .toList();
-    notifyListeners();
+    try {
+      final response = await http.get(Uri.parse('$_apiUrl/api/orders/$userId'));
+      if (response.statusCode == 200) {
+        final List<dynamic> data = json.decode(response.body);
+        _orders = data.map((json) => model.MyOrder.fromMap(json['id'], json)).toList();
+        notifyListeners();
+      }
+    } catch (e) {
+      print("Lỗi tải danh sách đơn hàng: $e");
+    }
   }
 
-  Future<void> placeOrder({
-    required List<Map<String, dynamic>> items,
-    required double totalAmount,
-    required double originalAmount,
-    required bool usedDiscount,
-  }) async {
-    final user = FirebaseAuth.instance.currentUser;
-    if (user == null) throw Exception('Người dùng chưa đăng nhập.');
-
-    final userId = user.uid;
-    final orderId = OrderUtils.generateOrderId();
-
-    final order = model.MyOrder(
-      id: orderId,
-      userId: userId,
-      items: items,
-      totalAmount: totalAmount,
-      originalAmount: originalAmount,
-      usedDiscount: usedDiscount,
-      createdAt: DateTime.now(),
-    );
-
-    await FirebaseFirestore.instance
-        .collection('orders')
-        .doc(orderId)
-        .set(order.toMap());
-  }
+  // Việc tạo đơn hàng (placeOrder) giờ đây được xử lý qua API Checkout PayOS ở checkout_screen.dart
 }

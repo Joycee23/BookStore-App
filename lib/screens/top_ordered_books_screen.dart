@@ -1,108 +1,132 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import '../utils/app_theme.dart';
+import '../utils/api_client.dart';
 
-class TopOrderedBooksScreen extends StatelessWidget {
-  TopOrderedBooksScreen({Key? key}) : super(key: key);
+class TopOrderedBooksScreen extends StatefulWidget {
+  const TopOrderedBooksScreen({Key? key}) : super(key: key);
 
+  @override
+  _TopOrderedBooksScreenState createState() => _TopOrderedBooksScreenState();
+}
+
+class _TopOrderedBooksScreenState extends State<TopOrderedBooksScreen> {
   final currencyFormatter = NumberFormat.currency(locale: 'vi_VN', symbol: '₫');
+  bool _isLoading = true;
+  List<dynamic> _topBooks = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchTopBooks();
+  }
+
+  Future<void> _fetchTopBooks() async {
+    try {
+      final List<dynamic> books = await ApiClient.get('/books?sort=sold');
+      setState(() {
+        // Lọc những sách đã bán > 0
+        _topBooks = books.where((b) => (b['sold'] ?? 0) > 0).toList();
+        _isLoading = false;
+      });
+    } catch (e) {
+      setState(() => _isLoading = false);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Sách được đặt nhiều nhất")),
-      body: StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance.collection('orders').snapshots(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          }
-
-          if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-            return const Center(child: Text("Chưa có đơn hàng nào."));
-          }
-
-          // Xử lý dữ liệu
-          Map<String, Map<String, dynamic>> bookOrderMap = {};
-
-          for (var doc in snapshot.data!.docs) {
-            final data = doc.data() as Map<String, dynamic>;
-
-            if (data.containsKey('items')) {
-              List items = data['items'];
-
-              for (var item in items) {
-                String title = item['title'] ?? 'Không tên';
-                String imageUrl = item['imageUrl'] ?? '';
-                int price = (item['price'] ?? 0).toInt();
-                int quantity = (item['quantity'] ?? 1).toInt();
-
-                if (bookOrderMap.containsKey(title)) {
-                  bookOrderMap[title]!['quantity'] += quantity;
-                } else {
-                  bookOrderMap[title] = {
-                    'imageUrl': imageUrl,
-                    'price': price,
-                    'quantity': quantity,
-                  };
-                }
-              }
-            }
-          }
-
-          // Sắp xếp theo số lượng giảm dần
-          var sortedEntries = bookOrderMap.entries.toList()
-            ..sort((a, b) => b.value['quantity'].compareTo(a.value['quantity']));
-          var sortedMap = Map.fromEntries(sortedEntries);
-
-          return ListView.builder(
-            itemCount: sortedMap.length,
-            itemBuilder: (context, index) {
-              String title = sortedMap.keys.elementAt(index);
-              final data = sortedMap[title]!;
-
-              return Card(
-                margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                elevation: 3,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                child: ListTile(
-                  contentPadding: const EdgeInsets.all(8),
-                  leading: ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
-                    child: data['imageUrl'] != ''
-                        ? Image.network(
-                            data['imageUrl'],
-                            width: 60,
-                            height: 90,
-                            fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) =>
-                                const Icon(Icons.broken_image, size: 60),
-                          )
-                        : const Icon(Icons.book, size: 60),
+      appBar: AppBar(title: const Text("Bán chạy nhất")),
+      body: _isLoading
+          ? const Center(child: CircularProgressIndicator(color: AppTheme.primary))
+          : _topBooks.isEmpty
+              ? Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 100, height: 100,
+                        decoration: BoxDecoration(color: AppTheme.bgCardLight, borderRadius: BorderRadius.circular(30)),
+                        child: const Icon(Icons.star_outline_rounded, size: 48, color: AppTheme.textMuted),
+                      ),
+                      const SizedBox(height: 20),
+                      const Text("Chưa có sách nào được bán", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: AppTheme.textPrimary)),
+                    ],
                   ),
-                  title: Text(
-                    title,
-                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                  ),
-                  subtitle: Text(
-                    'Giá: ${currencyFormatter.format(data['price'])}\nSố lượng đặt: ${data['quantity']}',
-                    style: const TextStyle(fontSize: 14),
-                  ),
-                  trailing: CircleAvatar(
-                    radius: 16,
-                    backgroundColor: Colors.blue,
-                    child: Text(
-                      '${index + 1}',
-                      style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  isThreeLine: true,
+                )
+              : ListView.builder(
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+                  itemCount: _topBooks.length,
+                  itemBuilder: (context, index) {
+                    final data = _topBooks[index];
+                    String title = data['title'] ?? 'Không tên';
+
+                    return Container(
+                      margin: const EdgeInsets.only(bottom: 16),
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: AppTheme.bgCard,
+                        borderRadius: AppTheme.radiusMd,
+                        border: Border.all(color: Colors.white.withOpacity(0.05)),
+                        boxShadow: [
+                          if (index < 3) BoxShadow(color: AppTheme.primary.withOpacity(0.1), blurRadius: 20, offset: const Offset(0, 5)),
+                        ],
+                      ),
+                      child: Row(
+                        children: [
+                          // Rank Badge for top 3
+                          if (index < 3)
+                            Container(
+                              width: 32, height: 32,
+                              margin: const EdgeInsets.only(right: 12),
+                              decoration: BoxDecoration(
+                                gradient: index == 0 ? AppTheme.primaryGradient : index == 1 ? AppTheme.accentGradient : AppTheme.walletGradient,
+                                shape: BoxShape.circle,
+                              ),
+                              child: Center(child: Text('${index + 1}', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w800))),
+                            )
+                          else
+                            Container(
+                              width: 32, height: 32,
+                              margin: const EdgeInsets.only(right: 12),
+                              decoration: BoxDecoration(color: AppTheme.bgCardLight, shape: BoxShape.circle),
+                              child: Center(child: Text('${index + 1}', style: const TextStyle(color: AppTheme.textMuted, fontWeight: FontWeight.w800))),
+                            ),
+                          
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(8),
+                            child: data['imageUrl'] != '' && data['imageUrl'] != null
+                                ? Image.network(data['imageUrl'], width: 50, height: 70, fit: BoxFit.cover,
+                                    errorBuilder: (_, __, ___) => Container(width: 50, height: 70, color: AppTheme.bgCardLight, child: const Icon(Icons.book, color: AppTheme.textMuted)))
+                                : Container(width: 50, height: 70, color: AppTheme.bgCardLight, child: const Icon(Icons.book, color: AppTheme.textMuted)),
+                          ),
+                          const SizedBox(width: 16),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(title, style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 16, color: AppTheme.textPrimary), maxLines: 2, overflow: TextOverflow.ellipsis),
+                                const SizedBox(height: 6),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(currencyFormatter.format(data['price']), style: const TextStyle(color: AppTheme.primary, fontWeight: FontWeight.w700, fontSize: 14)),
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                      decoration: BoxDecoration(color: AppTheme.bgCardLight, borderRadius: BorderRadius.circular(6)),
+                                      child: Text('Đã bán: ${data['sold']}', style: const TextStyle(color: AppTheme.textSecondary, fontSize: 12)),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
                 ),
-              );
-            },
-          );
-        },
-      ),
     );
   }
 }

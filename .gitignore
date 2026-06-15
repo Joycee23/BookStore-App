@@ -1,0 +1,23 @@
+# Flutter
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+build/
+
+# iOS
+ios/Pods/
+ios/.symlinks/
+
+# Android
+android/.gradle/
+
+# NextJS
+backend/.next/
+
+# Node
+backend/node_modules/
+
+# Env
+.env
+backend/.env

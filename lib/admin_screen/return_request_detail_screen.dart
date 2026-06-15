@@ -1,280 +1,218 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import '../utils/app_theme.dart';
+import '../utils/api_client.dart';
 
-class ReturnRequestDetailScreen extends StatelessWidget {
+class ReturnRequestDetailScreen extends StatefulWidget {
   final String returnId;
 
-  const ReturnRequestDetailScreen({
-    super.key,
-    required this.returnId,
-  });
+  const ReturnRequestDetailScreen({super.key, required this.returnId});
+
+  @override
+  State<ReturnRequestDetailScreen> createState() => _ReturnRequestDetailScreenState();
+}
+
+class _ReturnRequestDetailScreenState extends State<ReturnRequestDetailScreen> {
+  bool _isLoading = true;
+  Map<String, dynamic>? _data;
+  bool _isProcessing = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchDetail();
+  }
+
+  Future<void> _fetchDetail() async {
+    try {
+      final data = await ApiClient.get('/return_requests/${widget.returnId}');
+      if (mounted) {
+        setState(() {
+          _data = data;
+          _isLoading = false;
+        });
+      }
+    } catch (e) {
+      if (mounted) setState(() => _isLoading = false);
+    }
+  }
+
+  Future<void> _acceptReturn() async {
+    if (_data == null) return;
+    setState(() => _isProcessing = true);
+    
+    try {
+      await ApiClient.put('/return_requests/${widget.returnId}', {'status': 'Đã duyệt'});
+      
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: const Text('Xử lý trả hàng thành công!'),
+            backgroundColor: AppTheme.bgCardLight,
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          ),
+        );
+        Navigator.pop(context);
+      }
+    } catch (e) {
+      if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Lỗi: $e')));
+    } finally {
+      if (mounted) setState(() => _isProcessing = false);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    if (returnId.isEmpty) {
+    if (widget.returnId.isEmpty) {
       return Scaffold(
-        appBar: AppBar(
-          title: const Text("Chi tiết đơn trả"),
-          centerTitle: true,
-        ),
-        body: const Center(child: Text("Mã đơn trả hàng không hợp lệ.")),
+        appBar: AppBar(title: const Text("Chi tiết đơn trả")),
+        body: const Center(child: Text("Mã đơn trả hàng không hợp lệ.", style: TextStyle(color: AppTheme.textSecondary))),
       );
     }
 
+    if (_isLoading) {
+      return Scaffold(
+        appBar: AppBar(title: const Text("Chi tiết đơn trả")),
+        body: const Center(child: CircularProgressIndicator(color: AppTheme.primary)),
+      );
+    }
+
+    if (_data == null) {
+      return Scaffold(
+        appBar: AppBar(title: const Text("Chi tiết đơn trả")),
+        body: const Center(child: Text("Không tìm thấy đơn trả hàng.", style: TextStyle(color: AppTheme.textSecondary))),
+      );
+    }
+
+    final data = _data!;
+    final name = data['name'] ?? 'Không rõ';
+    final phone = data['phone'] ?? 'N/A';
+    final address = data['address'] ?? 'Chưa có địa chỉ';
+    final product = data['product'] ?? 'Không xác định';
+    final reason = data['reason'] ?? 'Không có lý do';
+    final status = data['status'] ?? 'Chưa xử lý';
+    final formattedDate = data['createdAt'] != null ? DateFormat('dd/MM/yyyy • HH:mm').format(DateTime.parse(data['createdAt'].toString())) : '---';
+    final String? imageUrl = data['imageUrl'];
+    final String orderCode = data['orderCode'] ?? 'Không rõ';
+    final String userId = data['userId'] ?? '';
+
+    Color statusColor = status == 'Đã duyệt' ? Colors.greenAccent : (status == 'Đang xử lý' ? Colors.orangeAccent : AppTheme.textMuted);
+    Color statusBg = status == 'Đã duyệt' ? Colors.greenAccent.withOpacity(0.12) : (status == 'Đang xử lý' ? Colors.orangeAccent.withOpacity(0.12) : AppTheme.bgCardLight);
+
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Chi tiết đơn trả"),
-        centerTitle: true,
-        flexibleSpace: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Color(0xFF4facfe), Color(0xFF00f2fe)],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
+      appBar: AppBar(title: const Text("Chi tiết đơn trả")),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // === Image ===
+            if (imageUrl != null && imageUrl.isNotEmpty)
+              ClipRRect(
+                borderRadius: AppTheme.radiusLg,
+                child: Image.network(
+                  imageUrl,
+                  height: 220, width: double.infinity, fit: BoxFit.cover,
+                  errorBuilder: (_, __, ___) => Container(height: 220, color: AppTheme.bgCardLight, child: const Icon(Icons.image_not_supported_rounded, color: AppTheme.textMuted, size: 48)),
+                ),
+              ),
+
+            const SizedBox(height: 20),
+
+            // === Status ===
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(color: statusBg, borderRadius: AppTheme.radiusMd, border: Border.all(color: statusColor.withOpacity(0.4))),
+              child: Row(
+                children: [
+                  Icon(status == 'Đã duyệt' ? Icons.check_circle_rounded : Icons.pending_rounded, color: statusColor),
+                  const SizedBox(width: 12),
+                  Text(status, style: TextStyle(color: statusColor, fontWeight: FontWeight.w700, fontSize: 16)),
+                ],
+              ),
             ),
-          ),
-        ),
-        foregroundColor: Colors.white,
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-      ),
-      body: FutureBuilder<DocumentSnapshot>(
-        future: FirebaseFirestore.instance
-            .collection('return_requests')
-            .doc(returnId)
-            .get(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          }
+            const SizedBox(height: 20),
 
-          if (!snapshot.hasData || !snapshot.data!.exists) {
-            return const Center(child: Text("Không tìm thấy đơn trả hàng."));
-          }
-
-          final data = snapshot.data!.data() as Map<String, dynamic>;
-          final name = data['name'] ?? 'Không rõ';
-          final phone = data['phone'] ?? 'N/A';
-          final address = data['address'] ?? 'Chưa có địa chỉ';
-          final product = data['product'] ?? 'Không xác định';
-          final reason = data['reason'] ?? 'Không có lý do';
-          final status = data['status'] ?? 'Chưa xử lý';
-          final timestamp = data['timestamp'] as Timestamp?;
-          final formattedDate = timestamp != null
-              ? DateFormat('dd/MM/yyyy HH:mm').format(timestamp.toDate())
-              : 'Chưa có thời gian';
-          final String? imageUrl = data['imageUrl'];
-          final String orderCode = data['orderCode'] ?? 'Không rõ';
-          final String userId = data['userId'] ?? '';
-
-          final Color statusColor = status == 'Đã duyệt'
-              ? Colors.green
-              : (status == 'Đang xử lý' ? Colors.orange : Colors.grey);
-
-          return SingleChildScrollView(
-            child: Padding(
+            // === Info Card ===
+            Container(
+              width: double.infinity,
               padding: const EdgeInsets.all(20),
-              child: Card(
-                elevation: 8,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16)),
-                shadowColor: Colors.blueAccent.withOpacity(0.2),
-                child: Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      if (imageUrl != null && imageUrl.isNotEmpty)
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 20),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(12),
-                            child: Image.network(
-                              imageUrl,
-                              height: 200,
-                              width: double.infinity,
-                              fit: BoxFit.cover,
-                              errorBuilder: (context, error, stackTrace) =>
-                                  Container(
-                                height: 200,
-                                color: Colors.grey[300],
-                                child: const Icon(Icons.broken_image,
-                                    size: 80, color: Colors.grey),
-                              ),
-                            ),
-                          ),
-                        ),
-                      _buildInfoItem(Icons.shopping_bag, "Sản phẩm", product),
-                      _buildInfoItem(Icons.person, "Người trả", name),
-                      _buildInfoItem(Icons.phone, "Số điện thoại", phone),
-                      _buildInfoItem(Icons.location_on, "Địa chỉ", address),
-                      _buildInfoItem(Icons.report_problem, "Lý do trả", reason),
-                      _buildInfoItem(Icons.receipt, "Mã đơn hàng", orderCode),
-                      _buildInfoItem(Icons.account_circle, "Mã người dùng", userId),
-                      _buildInfoItem(Icons.access_time, "Thời gian", formattedDate),
-                      const SizedBox(height: 12),
-                      Row(
-                        children: [
-                          const Icon(Icons.info, color: Colors.blueGrey),
-                          const SizedBox(width: 8),
-                          const Text("Trạng thái:",
-                              style: TextStyle(fontWeight: FontWeight.bold)),
-                          const SizedBox(width: 8),
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 12, vertical: 6),
-                            decoration: BoxDecoration(
-                              color: statusColor.withOpacity(0.2),
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: Text(
-                              status,
-                              style: TextStyle(
-                                color: statusColor,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 30),
-                      if (status == 'Chưa xử lý')
-                        SizedBox(
-                          width: double.infinity,
-                          height: 50,
-                          child: ElevatedButton.icon(
-                            icon: const Icon(Icons.check_circle_outline),
-                            label: const Text("Chấp Nhận trả hàng",
-                                style: TextStyle(fontSize: 16)),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.green,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12)),
-                            ),
-                            onPressed: () async {
-                              if (userId.isEmpty || product.isEmpty) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                      content: Text(
-                                          'Dữ liệu người dùng hoặc sản phẩm không hợp lệ')),
-                                );
-                                return;
-                              }
+              decoration: BoxDecoration(
+                color: AppTheme.bgCard,
+                borderRadius: AppTheme.radiusMd,
+                border: Border.all(color: Colors.white.withOpacity(0.05)),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text("Thông tin đơn trả", style: TextStyle(color: AppTheme.textPrimary, fontWeight: FontWeight.w700, fontSize: 17)),
+                  const SizedBox(height: 16),
+                  const Divider(color: Colors.white10, height: 1),
+                  const SizedBox(height: 16),
+                  _buildInfoRow(Icons.shopping_bag_rounded, "Sản phẩm", product, Colors.blue),
+                  const SizedBox(height: 14),
+                  _buildInfoRow(Icons.person_rounded, "Người trả", name, Colors.purpleAccent),
+                  const SizedBox(height: 14),
+                  _buildInfoRow(Icons.phone_rounded, "Số điện thoại", phone, Colors.greenAccent),
+                  const SizedBox(height: 14),
+                  _buildInfoRow(Icons.location_on_rounded, "Địa chỉ", address, Colors.redAccent),
+                  const SizedBox(height: 14),
+                  _buildInfoRow(Icons.report_problem_rounded, "Lý do trả", reason, Colors.orangeAccent),
+                  const SizedBox(height: 14),
+                  _buildInfoRow(Icons.receipt_rounded, "Mã đơn hàng", orderCode, AppTheme.primary),
+                  const SizedBox(height: 14),
+                  _buildInfoRow(Icons.access_time_rounded, "Thời gian", formattedDate, AppTheme.textMuted),
+                ],
+              ),
+            ),
 
-                              final docRef = FirebaseFirestore.instance
-                                  .collection('return_requests')
-                                  .doc(returnId);
+            const SizedBox(height: 32),
 
-                              try {
-                                // Lấy lại dữ liệu đơn trả hàng để đảm bảo đồng bộ
-                                final docSnapshot = await docRef.get();
-                                if (!docSnapshot.exists) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                        content:
-                                            Text('Đơn trả hàng không tồn tại')),
-                                  );
-                                  return;
-                                }
-
-                                // Tìm sách dựa trên tên product
-                                final booksQuery = await FirebaseFirestore.instance
-                                    .collection('books')
-                                    .where('title', isEqualTo: product)
-                                    .limit(1)
-                                    .get();
-
-                                if (booksQuery.docs.isEmpty) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                        content:
-                                            Text('Không tìm thấy sách phù hợp')),
-                                  );
-                                  return;
-                                }
-
-                                final bookData = booksQuery.docs.first.data();
-                                final double productPrice =
-                                    (bookData['price'] ?? 0).toDouble();
-
-                                // Lấy ví của userId chính xác
-                                final walletRef = FirebaseFirestore.instance
-                                    .collection('wallets')
-                                    .doc(userId);
-
-                                final walletSnapshot = await walletRef.get();
-
-                                double currentBalance = 0.0;
-                                if (walletSnapshot.exists) {
-                                  currentBalance =
-                                      (walletSnapshot.data()?['balance'] ?? 0)
-                                          .toDouble();
-                                }
-
-                                // Cộng tiền hoàn trả vào ví
-                                await walletRef.set({
-                                  'balance': currentBalance + productPrice,
-                                }, SetOptions(merge: true));
-
-                                // Cập nhật trạng thái đơn trả hàng thành "Đã duyệt"
-                                await docRef.update({'status': 'Đã duyệt'});
-
-                                if (context.mounted) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                        content:
-                                            Text('Xử lý trả hàng thành công')),
-                                  );
-                                  Navigator.pop(context);
-                                }
-                              } catch (e) {
-                                if (context.mounted) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                        content:
-                                            Text('Lỗi xử lý: ${e.toString()}')),
-                                  );
-                                }
-                              }
-                            },
-                          ),
-                        ),
-                    ],
+            // === Action Button ===
+            if (status == 'Chưa xử lý')
+              SizedBox(
+                width: double.infinity,
+                height: 56,
+                child: Container(
+                  decoration: BoxDecoration(
+                    gradient: const LinearGradient(colors: [Color(0xFF11998E), Color(0xFF38EF7D)]),
+                    borderRadius: AppTheme.radiusMd,
+                    boxShadow: [BoxShadow(color: Colors.greenAccent.withOpacity(0.3), blurRadius: 20, spreadRadius: 2)],
+                  ),
+                  child: ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(backgroundColor: Colors.transparent, shadowColor: Colors.transparent, shape: RoundedRectangleBorder(borderRadius: AppTheme.radiusMd)),
+                    icon: const Icon(Icons.check_circle_rounded, color: Colors.white),
+                    label: _isProcessing ? const CircularProgressIndicator(color: Colors.white) : const Text("Chấp nhận hoàn hàng", style: TextStyle(fontSize: 17, fontWeight: FontWeight.w700, color: Colors.white)),
+                    onPressed: _isProcessing ? null : _acceptReturn,
                   ),
                 ),
               ),
-            ),
-          );
-        },
+            const SizedBox(height: 40),
+          ],
+        ),
       ),
     );
   }
 
-  Widget _buildInfoItem(IconData icon, String label, String? value) {
-    final displayValue =
-        (value == null || value.isEmpty) ? 'Không có dữ liệu' : value;
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Icon(icon, color: Colors.blueAccent),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(label,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 15)),
-                const SizedBox(height: 4),
-                Text(displayValue, style: const TextStyle(fontSize: 15)),
-              ],
-            ),
+  Widget _buildInfoRow(IconData icon, String label, String value, Color color) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Icon(icon, color: color, size: 20),
+        const SizedBox(width: 14),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(label, style: const TextStyle(color: AppTheme.textMuted, fontSize: 12, fontWeight: FontWeight.w600)),
+              const SizedBox(height: 4),
+              Text(value, style: const TextStyle(color: AppTheme.textPrimary, fontSize: 15, fontWeight: FontWeight.w600, height: 1.4)),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

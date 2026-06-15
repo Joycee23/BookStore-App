@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/cart_provider.dart';
+import '../providers/auth_provider.dart';
 
 class ProductDetailScreen extends StatelessWidget {
   final String id;
@@ -19,13 +20,21 @@ class ProductDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cartProvider = Provider.of<CartProvider>(context, listen: false);
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
 
     return Scaffold(
       appBar: AppBar(title: Text(title)),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Image.network(imageUrl, height: 200, width: double.infinity, fit: BoxFit.cover),
+          Image.network(
+            imageUrl, 
+            height: 200, 
+            width: double.infinity, 
+            fit: BoxFit.cover,
+            errorBuilder: (context, error, stackTrace) =>
+                Image.asset('assets/images/placeholder.jpg', width: double.infinity, height: 200),
+          ),
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
@@ -37,10 +46,16 @@ class ProductDetailScreen extends StatelessWidget {
                 const SizedBox(height: 16),
                 ElevatedButton(
                   onPressed: () {
-                    cartProvider.addToCart(id, title, price, imageUrl);
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Đã thêm vào giỏ hàng!')),
-                    );
+                    if (authProvider.userId != null) {
+                      cartProvider.addItem(authProvider.userId!, id, title, price, imageUrl);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Đã thêm vào giỏ hàng!')),
+                      );
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Vui lòng đăng nhập để thêm vào giỏ hàng!')),
+                      );
+                    }
                   },
                   child: const Text('Thêm vào giỏ hàng'),
                 ),

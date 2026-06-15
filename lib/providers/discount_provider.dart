@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart'; // Đảm bảo đã import ChangeNotifier
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:book_app/models/discount_code.dart'; // Import DiscountCode
+import 'package:book_app/utils/api_client.dart';
 
 class DiscountProvider with ChangeNotifier {
   double _discountAmount = 0.0;
@@ -12,40 +12,29 @@ class DiscountProvider with ChangeNotifier {
   // Phương thức kiểm tra mã giảm giá
   Future<bool> validateDiscountCode(String inputCode, String userId) async {
     try {
-      final querySnapshot = await FirebaseFirestore.instance
-          .collection('discount_codes')
-          .where('code', isEqualTo: inputCode)
-          .where('isUsed', isEqualTo: false)
-          .get();
+      final response = await ApiClient.post('/discounts/validate', {
+        'code': inputCode,
+        'userId': userId,
+      });
 
-      if (querySnapshot.docs.isNotEmpty) {
-        final doc = querySnapshot.docs.first;
-        final discountCode = DiscountCode.fromMap(doc.id, doc.data() as Map<String, dynamic>);
-
-        // Cập nhật discountAmount và thông báo
-        _discountAmount = discountCode.discountAmount;
-        _discountMessage = "Mã giảm giá hợp lệ!";
-
-        // Cập nhật trạng thái của mã giảm giá trong Firestore
-        await FirebaseFirestore.instance.collection('discount_codes').doc(doc.id).update({
-          'isUsed': true,  // Đánh dấu mã đã sử dụng
-        });
-
-        // Lưu mã giảm giá đã sử dụng vào thông tin người dùng
-        await FirebaseFirestore.instance.collection('users').doc(userId).update({
-          'usedDiscountCodes': FieldValue.arrayUnion([inputCode]),
-        });
-
-        notifyListeners();
-        return true;
-      } else {
-        _discountMessage = "Mã giảm giá không hợp lệ hoặc đã sử dụng!";
-        _discountAmount = 0;
-        notifyListeners();
-        return false;
-      }
+      // Nếu API trả về dữ liệu (không ném lỗi) thì mã hợp lệ
+      _discountAmount = (response['amount'] as num).toDouble();
+      _discountMessage = "Mã giảm giá hợp lệ!";
+      
+      notifyListeners();
+      return true;
     } catch (e) {
-      _discountMessage = "Đã xảy ra lỗi khi kiểm tra mã!";
+      final errorStr = e.toString();
+      if (errorStr.contains('đã được sử dụng')) {
+        _discountMessage = "Mã giảm giá đã được sử dụng!";
+      } else if (errorStr.contains('không tồn tại')) {
+        _discountMessage = "Mã giảm giá không tồn tại!";
+      } else if (errorStr.contains('hết hạn')) {
+        _discountMessage = "Mã giảm giá đã hết hạn!";
+      } else {
+        _discountMessage = "Mã giảm giá không hợp lệ!";
+      }
+      
       _discountAmount = 0;
       notifyListeners();
       return false;

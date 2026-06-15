@@ -1,7 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:intl/intl.dart'; // ✅ Dùng để định dạng ngày
+import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
+import '../utils/app_theme.dart';
+import '../providers/auth_provider.dart';
+import '../utils/api_client.dart';
 
 class DiscountScreen extends StatefulWidget {
   const DiscountScreen({Key? key}) : super(key: key);
@@ -13,6 +15,7 @@ class DiscountScreen extends StatefulWidget {
 class _DiscountScreenState extends State<DiscountScreen> {
   List<Map<String, dynamic>> _discountCodes = [];
   bool _loading = true;
+  final currencyFormat = NumberFormat.currency(locale: 'vi_VN', symbol: '₫');
 
   @override
   void initState() {
@@ -20,36 +23,21 @@ class _DiscountScreenState extends State<DiscountScreen> {
     _loadDiscountCodes();
   }
 
-  // Hàm tải mã giảm giá theo UID người dùng
   Future<void> _loadDiscountCodes() async {
     try {
-      final currentUser = FirebaseAuth.instance.currentUser;
-      if (currentUser == null) {
-        print('Chưa đăng nhập.');
-        return;
-      }
+      final authProvider = Provider.of<AuthProvider>(context, listen: false);
+      final userId = authProvider.userId;
+      if (userId == null) return;
 
-      String uid = currentUser.uid;
-      // Truy vấn mã giảm giá của người dùng dựa vào UID làm document ID
-      DocumentSnapshot snapshot = await FirebaseFirestore.instance
-          .collection('discountCodes')
-          .doc(uid) // Dùng UID làm doc ID
-          .get();
+      final List<dynamic> fetchedCodes = await ApiClient.get('/discounts?userId=$userId');
 
-      if (snapshot.exists) {
-        var data = snapshot.data() as Map<String, dynamic>;
-        List<Map<String, dynamic>> discountCodes = List<Map<String, dynamic>>.from(data['discountCodes'] ?? []);
-
-        setState(() {
-          _discountCodes = discountCodes;
-        });
-      }
+      setState(() {
+        _discountCodes = fetchedCodes.map((e) => e as Map<String, dynamic>).toList();
+      });
     } catch (e) {
       print('Lỗi khi tải mã giảm giá: $e');
     } finally {
-      setState(() {
-        _loading = false;
-      });
+      setState(() => _loading = false);
     }
   }
 
@@ -65,34 +53,76 @@ class _DiscountScreenState extends State<DiscountScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Mã giảm giá của tôi"),
-        backgroundColor: Colors.blueAccent,
-      ),
+      appBar: AppBar(title: const Text("Mã giảm giá")),
       body: _loading
-          ? const Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator(color: AppTheme.primary))
           : _discountCodes.isEmpty
-              ? const Center(child: Text("Bạn chưa có mã giảm giá nào!"))
+              ? Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 100, height: 100,
+                        decoration: BoxDecoration(color: AppTheme.bgCardLight, borderRadius: BorderRadius.circular(30)),
+                        child: const Icon(Icons.discount_outlined, size: 48, color: AppTheme.textMuted),
+                      ),
+                      const SizedBox(height: 20),
+                      const Text("Không có mã giảm giá", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: AppTheme.textPrimary)),
+                    ],
+                  ),
+                )
               : ListView.builder(
+                  padding: const EdgeInsets.all(16),
                   itemCount: _discountCodes.length,
                   itemBuilder: (context, index) {
                     var discount = _discountCodes[index];
-                    return Card(
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 8),
-                      child: ListTile(
-                        leading: Icon(
-                          Icons.card_giftcard,
-                          color: Colors.blueAccent,
-                        ),
-                        title: Text('Mã: ${discount['code']}'),
-                        subtitle: Text(
-                            'Giảm ${discount['amount']} VND - HSD: ${_formatDate(discount['expiryDate'])}'),
-                        trailing: discount['isUsed']
-                            ? const Icon(Icons.check_circle, color: Colors.green)
-                            : const Icon(Icons.cancel, color: Colors.red),
-                        onTap: () {
-                        },
+                    bool isUsed = discount['isUsed'] ?? false;
+                    bool isExpired = DateTime.parse(discount['expiryDate']).isBefore(DateTime.now());
+                    bool isAvailable = !isUsed && !isExpired;
+
+                    return Container(
+                      margin: const EdgeInsets.only(bottom: 16),
+                      decoration: BoxDecoration(
+                        color: AppTheme.bgCard,
+                        borderRadius: AppTheme.radiusMd,
+                        border: Border.all(color: isAvailable ? AppTheme.primary.withOpacity(0.5) : Colors.white.withOpacity(0.05)),
+                        boxShadow: [
+                          if (isAvailable) BoxShadow(color: AppTheme.primary.withOpacity(0.1), blurRadius: 15, offset: const Offset(0, 5)),
+                        ],
+                      ),
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 100, height: 100,
+                            decoration: BoxDecoration(
+                              gradient: isAvailable ? AppTheme.primaryGradient : const LinearGradient(colors: [Colors.grey, Colors.blueGrey]),
+                              borderRadius: const BorderRadius.only(topLeft: Radius.circular(16), bottomLeft: Radius.circular(16)),
+                            ),
+                            child: const Center(child: Icon(Icons.percent_rounded, color: Colors.white, size: 40)),
+                          ),
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(discount['code'], style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: isAvailable ? AppTheme.textPrimary : AppTheme.textMuted)),
+                                      if (isUsed) const Text("Đã dùng", style: TextStyle(color: Colors.redAccent, fontSize: 12, fontWeight: FontWeight.w700))
+                                      else if (isExpired) const Text("Hết hạn", style: TextStyle(color: Colors.orangeAccent, fontSize: 12, fontWeight: FontWeight.w700)),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 6),
+                                  Text("Giảm ${currencyFormat.format((discount['amount'] as num).toDouble())}", style: TextStyle(color: isAvailable ? AppTheme.primary : AppTheme.textMuted, fontWeight: FontWeight.w700, fontSize: 15)),
+                                  const SizedBox(height: 6),
+                                  Text("HSD: ${_formatDate(discount['expiryDate'])}", style: const TextStyle(color: AppTheme.textSecondary, fontSize: 13)),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     );
                   },

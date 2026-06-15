@@ -1,8 +1,12 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import '../providers/cart_provider.dart';
+import '../providers/auth_provider.dart';
+import '../utils/app_theme.dart';
 
 class CheckoutScreen extends StatefulWidget {
   @override
@@ -10,130 +14,93 @@ class CheckoutScreen extends StatefulWidget {
 }
 
 class _CheckoutScreenState extends State<CheckoutScreen> {
-  bool _isConfirmingOrder = false;  // Biến kiểm tra trạng thái xác nhận
+  bool _isLoading = false;
 
-  // Hàm lấy thông tin người dùng từ Firestore
-  Future<Map<String, dynamic>> _getUserInfo() async {
-    final user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
-      final docSnapshot = await FirebaseFirestore.instance.collection('users').doc(user.uid).get();
-      return docSnapshot.data() ?? {};
-    }
-    return {};
-  }
-
-  // Hàm xác nhận đơn hàng và lưu vào Firestore
   Future<void> _confirmOrder(BuildContext context) async {
     final cart = Provider.of<CartProvider>(context, listen: false);
-    final user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
-      final userInfo = await _getUserInfo();
-      
-      final orderData = {
-        'userId': user.uid,
-        'userName': userInfo['name'] ?? 'Không có tên',
-        'userPhone': userInfo['phone'] ?? 'Không có số điện thoại',
-        'userAddress': userInfo['address'] ?? 'Không có địa chỉ',
-        'orderDate': Timestamp.now(),
-        'status': 'Chờ vận chuyển', // Trạng thái đơn hàng ban đầu
-        'items': cart.items.values.map((item) => {
-          'productName': item.title,
-          'productPrice': item.price,
-          'quantity': item.quantity,
-        }).toList(),
-        'totalPrice': cart.totalPrice,
-      };
+    final auth = Provider.of<AuthProvider>(context, listen: false);
+    final userId = auth.userId;
 
-      // Lưu đơn hàng vào Firestore
-      await FirebaseFirestore.instance.collection('orders').add(orderData);
+    if (userId == null) return;
+    setState(() => _isLoading = true);
 
-      // Thông báo đã đặt hàng thành công
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Đặt hàng thành công")));
+    final apiUrl = dotenv.env['API_BASE_URL'] ?? 'http://localhost:3000';
 
-      // Xóa giỏ hàng sau khi thanh toán
-      cart.clearCart();
+    try {
+      final response = await http.post(
+        Uri.parse('$apiUrl/api/checkout'),
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode({
+          'userId': userId,
+          'cancelUrl': 'https://localhost:3000/cancel', 
+          'returnUrl': 'https://localhost:3000/success',
+        }),
+      );
 
-      // Quay lại trang giỏ hàng
-      Navigator.pop(context);
+      if (response.statusCode == 200) {
+        final checkoutUrl = json.decode(response.body)['checkoutUrl'];
+        if (checkoutUrl != null) {
+          final uri = Uri.parse(checkoutUrl);
+          if (await canLaunchUrl(uri)) {
+            await launchUrl(uri, mode: LaunchMode.externalApplication);
+            cart.clearCart();
+            Navigator.pop(context);
+          }
+        }
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Lỗi: ${json.decode(response.body)['error']}")));
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Lỗi thanh toán: $e")));
+    } finally {
+      setState(() => _isLoading = false);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final cart = Provider.of<CartProvider>(context);
-
     return Scaffold(
-      appBar: AppBar(title: Text('Thanh toán')),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: _isConfirmingOrder
-            ? Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("Thông tin người nhận", style: TextStyle(fontWeight: FontWeight.bold)),
-                  // Hiển thị thông tin người dùng nếu có
-                  FutureBuilder<Map<String, dynamic>>(
-                    future: _getUserInfo(),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return CircularProgressIndicator();
-                      } else if (snapshot.hasError) {
-                        return Text('Lỗi tải thông tin người dùng');
-                      } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                        return Text('Không có thông tin người dùng');
-                      }
-
-                      final userInfo = snapshot.data!;
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("Tên: ${userInfo['name'] ?? 'Không có tên'}"),
-                          Text("Số điện thoại: ${userInfo['phone'] ?? 'Không có số điện thoại'}"),
-                          Text("Địa chỉ: ${userInfo['address'] ?? 'Không có địa chỉ'}"),
-                          SizedBox(height: 20),
-                          Text("Sản phẩm trong giỏ hàng:", style: TextStyle(fontWeight: FontWeight.bold)),
-                          Column(
-                            children: cart.items.values.map((item) {
-                              return ListTile(
-                                title: Text(item.title),
-                                subtitle: Text("Giá: \$${item.price} x ${item.quantity}"),
-                              );
-                            }).toList(),
-                          ),
-                          SizedBox(height: 20),
-                          Text("Tổng tiền: \$${cart.totalPrice.toStringAsFixed(2)}", 
-                              style: TextStyle(fontWeight: FontWeight.bold)),
-                          SizedBox(height: 20),
-                          ElevatedButton(
-                            onPressed: () {
-                              // Xác nhận và thanh toán
-                              _confirmOrder(context);
-                            },
-                            child: Text("Xác nhận và thanh toán"),
-                          ),
-                        ],
-                      );
-                    },
-                  ),
-                ],
-              )
-            : Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("Tổng tiền: \$${cart.totalPrice.toStringAsFixed(2)}", 
-                      style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-                  SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: () {
-                      // Chuyển đến bước xác nhận thông tin
-                      setState(() {
-                        _isConfirmingOrder = true;
-                      });
-                    },
-                    child: Text("Tiến hành thanh toán"),
-                  ),
-                ],
+      appBar: AppBar(title: const Text('Thanh toán PayOS')),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: 120, height: 120,
+                decoration: BoxDecoration(
+                  color: AppTheme.bgCardLight,
+                  borderRadius: BorderRadius.circular(30),
+                  boxShadow: AppTheme.glowShadow(AppTheme.primary),
+                ),
+                child: const Icon(Icons.qr_code_2_rounded, size: 64, color: AppTheme.primary),
               ),
+              const SizedBox(height: 32),
+              const Text("Chuyển hướng thanh toán", style: TextStyle(fontSize: 22, fontWeight: FontWeight.w800, color: AppTheme.textPrimary)),
+              const SizedBox(height: 12),
+              const Text("Bạn sẽ được chuyển hướng tới cổng thanh toán an toàn của PayOS.", textAlign: TextAlign.center, style: TextStyle(color: AppTheme.textSecondary, fontSize: 15)),
+              const SizedBox(height: 48),
+              SizedBox(
+                width: double.infinity, height: 56,
+                child: Container(
+                  decoration: BoxDecoration(
+                    gradient: AppTheme.primaryGradient,
+                    borderRadius: AppTheme.radiusMd,
+                    boxShadow: AppTheme.glowShadow(AppTheme.primary),
+                  ),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(backgroundColor: Colors.transparent, shadowColor: Colors.transparent, shape: RoundedRectangleBorder(borderRadius: AppTheme.radiusMd)),
+                    onPressed: _isLoading ? null : () => _confirmOrder(context),
+                    child: _isLoading 
+                        ? const CircularProgressIndicator(color: Colors.white)
+                        : const Text("Tiến hành thanh toán", style: TextStyle(color: Colors.white, fontSize: 17, fontWeight: FontWeight.w700)),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
