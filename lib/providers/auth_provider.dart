@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class AuthProvider with ChangeNotifier {
   String _token = "";
@@ -11,6 +13,25 @@ class AuthProvider with ChangeNotifier {
   String _phoneNumber = "";
   String _address = "";
   double _walletBalance = 0.0;
+
+  AuthProvider() {
+    try {
+      Supabase.instance.client.auth.onAuthStateChange.listen((data) {
+        final AuthChangeEvent event = data.event;
+        final Session? session = data.session;
+
+        if (event == AuthChangeEvent.signedIn && session != null) {
+          final user = session.user;
+          // Sync with our backend
+          syncSupabaseUserToBackend(user.id, user.email ?? '', user.userMetadata?['full_name']);
+        } else if (event == AuthChangeEvent.signedOut) {
+          logout();
+        }
+      });
+    } catch (e) {
+      print("Supabase chưa được khởi tạo: $e");
+    }
+  }
 
   String? get userId => _token.isNotEmpty ? _token : null; // We are using the token as user ID for simplicity
   bool get isAuthenticated => _token.isNotEmpty;
@@ -154,6 +175,70 @@ class AuthProvider with ChangeNotifier {
       }
     } catch (e) {
       return "Lỗi kết nối: ${e.toString()}";
+    }
+  }
+
+  Future<String?> loginWithGoogle(BuildContext context) async {
+    try {
+      final supabase = Supabase.instance.client;
+      // Dùng redirectTo để hỗ trợ quay lại app trên Mobile (Deep Link) hoặc Web (dùng Uri.base.origin)
+      final redirectUrl = kIsWeb ? Uri.base.origin : 'bookstore://login-callback';
+      await supabase.auth.signInWithOAuth(
+        OAuthProvider.google,
+        redirectTo: redirectUrl,
+      );
+      return null;
+    } catch (e) {
+      return "Lỗi đăng nhập Google: ${e.toString()}";
+    }
+  }
+
+  Future<String?> loginWithMagicLink(String email, BuildContext context) async {
+    try {
+      final supabase = Supabase.instance.client;
+      final redirectUrl = kIsWeb ? Uri.base.origin : 'bookstore://login-callback';
+      await supabase.auth.signInWithOtp(
+        email: email.trim(),
+        emailRedirectTo: redirectUrl,
+      );
+      return null;
+    } catch (e) {
+      return "Lỗi gửi link: ${e.toString()}";
+    }
+  }
+
+  Future<void> syncSupabaseUserToBackend(String id, String email, String? fullName) async {
+    try {
+      final response = await http.post(
+        Uri.parse('$_apiUrl/api/users/sync'),
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode({
+          'id': id,
+          'email': email,
+          'fullName': fullName,
+        }),
+      );
+      
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        final data = json.decode(response.body);
+        _token = data['token'] ?? id;
+        _email = data['email'] ?? email;
+        _fullName = data['fullName'] ?? '';
+        _phoneNumber = data['phoneNumber'] ?? '';
+        _address = data['address'] ?? '';
+        
+        await _saveToken(_token);
+        
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setString('email', _email ?? '');
+        await prefs.setString('full_name', _fullName);
+        await prefs.setString('phone_number', _phoneNumber);
+        await prefs.setString('address', _address);
+        
+        notifyListeners();
+      }
+    } catch (e) {
+      print("Lỗi đồng bộ user: $e");
     }
   }
 

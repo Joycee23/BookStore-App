@@ -59,6 +59,32 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
     }
   }
 
+  void _loginWithGoogle() async {
+    setState(() => _isLoading = true);
+    final auth = Provider.of<AuthProvider>(context, listen: false);
+    String? message = await auth.loginWithGoogle(context);
+    setState(() => _isLoading = false);
+    if (message != null) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message), backgroundColor: Colors.redAccent));
+    }
+  }
+
+  void _sendMagicLink() async {
+    if (_emailController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Vui lòng nhập Email để nhận link"), backgroundColor: Colors.redAccent));
+      return;
+    }
+    setState(() => _isLoading = true);
+    final auth = Provider.of<AuthProvider>(context, listen: false);
+    String? message = await auth.loginWithMagicLink(_emailController.text, context);
+    setState(() => _isLoading = false);
+    if (message != null) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message), backgroundColor: Colors.redAccent));
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Link đăng nhập đã được gửi vào Email của bạn!"), backgroundColor: Colors.green));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -199,6 +225,57 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                                 ),
                               ),
                       ),
+                      const SizedBox(height: 16),
+                      // Magic Link Button
+                      SizedBox(
+                        width: double.infinity,
+                        height: 56,
+                        child: OutlinedButton(
+                          style: OutlinedButton.styleFrom(
+                            side: BorderSide(color: AppTheme.primary.withOpacity(0.5), width: 1.5),
+                            shape: RoundedRectangleBorder(borderRadius: AppTheme.radiusMd),
+                            backgroundColor: Colors.transparent,
+                          ),
+                          onPressed: _isLoading ? null : _sendMagicLink,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              Icon(Icons.mark_email_read_rounded, color: AppTheme.primary, size: 22),
+                              SizedBox(width: 10),
+                              Text(
+                                "Nhận Link Đăng Nhập",
+                                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: AppTheme.primary),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      // Google Login Button
+                      SizedBox(
+                        width: double.infinity,
+                        height: 56,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.white,
+                            foregroundColor: Colors.black87,
+                            elevation: 0,
+                            shape: RoundedRectangleBorder(borderRadius: AppTheme.radiusMd),
+                          ),
+                          onPressed: _isLoading ? null : _loginWithGoogle,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.network('https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png', height: 24),
+                              const SizedBox(width: 12),
+                              const Text(
+                                "Đăng nhập bằng Google",
+                                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                       const SizedBox(height: 32),
                       // Register Link
                       Center(
@@ -257,24 +334,25 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
       ),
       child: TextField(
         controller: controller,
+        obscureText: isPassword && _obscurePassword,
         keyboardType: keyboardType,
-        obscureText: isPassword ? _obscurePassword : false,
         style: const TextStyle(color: AppTheme.textPrimary, fontSize: 16),
         decoration: InputDecoration(
           hintText: hint,
-          border: InputBorder.none,
-          contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
-          prefixIcon: Icon(icon, color: AppTheme.textMuted, size: 22),
+          hintStyle: const TextStyle(color: AppTheme.textSecondary),
+          prefixIcon: Icon(icon, color: AppTheme.textSecondary, size: 22),
           suffixIcon: isPassword
               ? IconButton(
                   icon: Icon(
-                    _obscurePassword ? Icons.visibility_off_rounded : Icons.visibility_rounded,
-                    color: AppTheme.textMuted,
-                    size: 22,
+                    _obscurePassword ? Icons.visibility_off_outlined : Icons.visibility_outlined,
+                    color: AppTheme.textSecondary,
+                    size: 20,
                   ),
                   onPressed: () => setState(() => _obscurePassword = !_obscurePassword),
                 )
               : null,
+          border: InputBorder.none,
+          contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
         ),
       ),
     );
