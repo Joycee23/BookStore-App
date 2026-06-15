@@ -1,19 +1,29 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-const PayOS = require('@payos/node');
+const { PayOS } = require('@payos/node');
 
-const payos = new PayOS(
-  process.env.PAYOS_CLIENT_ID!,
-  process.env.PAYOS_API_KEY!,
-  process.env.PAYOS_CHECKSUM_KEY!
-);
+const payos = new PayOS({
+  clientId: process.env.PAYOS_CLIENT_ID!,
+  apiKey: process.env.PAYOS_API_KEY!,
+  checksumKey: process.env.PAYOS_CHECKSUM_KEY!
+});
+
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+};
+
+export async function OPTIONS() {
+  return NextResponse.json({}, { headers: corsHeaders });
+}
 
 export async function POST(request: Request) {
   try {
     const { userId, items, cancelUrl, returnUrl } = await request.json();
     
     if (!items || items.length === 0) {
-      return NextResponse.json({ error: 'Cart is empty' }, { status: 400 });
+      return NextResponse.json({ error: 'Cart is empty' }, { status: 400, headers: corsHeaders });
     }
 
     let totalAmount = 0;
@@ -37,7 +47,7 @@ export async function POST(request: Request) {
     }
 
     const payosAmount = Math.round(totalAmount);
-    if (payosAmount <= 0) return NextResponse.json({ error: 'Invalid total amount' }, { status: 400 });
+    if (payosAmount <= 0) return NextResponse.json({ error: 'Invalid total amount' }, { status: 400, headers: corsHeaders });
 
     const orderCode = Number(String(Date.now()).slice(-6) + Math.floor(Math.random() * 100));
     
@@ -63,15 +73,15 @@ export async function POST(request: Request) {
       returnUrl: returnUrl || 'app://bookstore/payment/success'
     };
 
-    const paymentLink = await payos.createPaymentLink(paymentData);
+    const paymentLink = await payos.paymentRequests.create(paymentData);
 
     return NextResponse.json({
       orderId: order.id,
       checkoutUrl: paymentLink.checkoutUrl
-    });
+    }, { headers: corsHeaders });
 
   } catch (error: any) {
     console.error(error);
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json({ error: error.message }, { status: 500, headers: corsHeaders });
   }
 }

@@ -5,6 +5,7 @@ import 'package:book_app/models/book.dart';
 import 'package:book_app/providers/cart_provider.dart';
 import 'package:book_app/providers/auth_provider.dart';
 import 'package:book_app/utils/app_theme.dart';
+import 'package:book_app/screens/order/cart_screen.dart';
 
 class BookDetailScreen extends StatelessWidget {
   final Book book;
@@ -173,7 +174,7 @@ class BookDetailScreen extends StatelessWidget {
           ),
         ],
       ),
-      // === Floating Add to Cart ===
+      // === Floating Bottom Bar ===
       bottomNavigationBar: Container(
         padding: const EdgeInsets.fromLTRB(20, 12, 20, 28),
         decoration: BoxDecoration(
@@ -183,6 +184,7 @@ class BookDetailScreen extends StatelessWidget {
         child: Row(
           children: [
             Expanded(
+              flex: 4,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -190,41 +192,72 @@ class BookDetailScreen extends StatelessWidget {
                   const Text('Giá', style: TextStyle(color: AppTheme.textMuted, fontSize: 13)),
                   Text(
                     formatCurrency.format(isDiscounted ? discountedPrice : book.price),
-                    style: const TextStyle(color: AppTheme.primary, fontSize: 22, fontWeight: FontWeight.w800),
+                    style: const TextStyle(color: AppTheme.primary, fontSize: 20, fontWeight: FontWeight.w800),
                   ),
                 ],
               ),
             ),
-            const SizedBox(width: 16),
+            const SizedBox(width: 8),
+            
+            // Nút Thêm vào giỏ
+            Container(
+              height: 50,
+              width: 50,
+              decoration: BoxDecoration(
+                color: AppTheme.bgCardLight,
+                borderRadius: AppTheme.radiusMd,
+              ),
+              child: IconButton(
+                icon: const Icon(Icons.add_shopping_cart_rounded, color: AppTheme.primary),
+                onPressed: () {
+                  final priceToAdd = isDiscounted ? discountedPrice : book.price;
+                  final userId = authProvider.userId ?? '';
+                  cartProvider.addItem(userId, book.id, book.title, priceToAdd, book.imageUrl);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('${book.title} đã thêm vào giỏ!'),
+                      backgroundColor: AppTheme.bgCardLight,
+                      behavior: SnackBarBehavior.floating,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                    ),
+                  );
+                },
+              ),
+            ),
+            const SizedBox(width: 8),
+            
+            // Nút Mua ngay
             Expanded(
+              flex: 5,
               child: Container(
-                height: 56,
+                height: 50,
                 decoration: BoxDecoration(
                   gradient: AppTheme.primaryGradient,
                   borderRadius: AppTheme.radiusMd,
                   boxShadow: AppTheme.glowShadow(AppTheme.primary),
                 ),
-                child: ElevatedButton.icon(
+                child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.transparent,
                     shadowColor: Colors.transparent,
                     shape: RoundedRectangleBorder(borderRadius: AppTheme.radiusMd),
                   ),
-                  onPressed: () {
+                  onPressed: () async {
                     final priceToAdd = isDiscounted ? discountedPrice : book.price;
                     final userId = authProvider.userId ?? '';
-                    cartProvider.addItem(userId, book.id, book.title, priceToAdd, book.imageUrl);
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('${book.title} đã thêm vào giỏ!'),
-                        backgroundColor: AppTheme.bgCardLight,
-                        behavior: SnackBarBehavior.floating,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                      ),
-                    );
+                    
+                    // Thêm vào giỏ hàng
+                    await cartProvider.addItem(userId, book.id, book.title, priceToAdd, book.imageUrl);
+                    
+                    // Chuyển hướng sang màn giỏ hàng
+                    if (context.mounted) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => CartScreen()),
+                      );
+                    }
                   },
-                  icon: const Icon(Icons.shopping_bag_rounded, color: Colors.white),
-                  label: const Text('Thêm vào giỏ', style: TextStyle(fontWeight: FontWeight.w700, color: Colors.white)),
+                  child: const Text('Mua ngay', style: TextStyle(fontWeight: FontWeight.w700, color: Colors.white, fontSize: 15)),
                 ),
               ),
             ),
