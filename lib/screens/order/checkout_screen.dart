@@ -27,11 +27,23 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     final apiUrl = dotenv.env['API_BASE_URL'] ?? 'http://localhost:3000';
 
     try {
+      final items = cart.items.values.map((item) => {
+        'bookId': item.id,
+        'quantity': item.quantity,
+      }).toList();
+
+      if (items.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Giỏ hàng đang trống!")));
+        setState(() => _isLoading = false);
+        return;
+      }
+
       final response = await http.post(
         Uri.parse('$apiUrl/api/checkout'),
         headers: {'Content-Type': 'application/json'},
         body: json.encode({
           'userId': userId,
+          'items': items,
           'cancelUrl': 'https://localhost:3000/cancel', 
           'returnUrl': 'https://localhost:3000/success',
         }),
